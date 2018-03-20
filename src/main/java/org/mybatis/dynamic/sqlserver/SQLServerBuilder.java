@@ -18,7 +18,6 @@ package org.mybatis.dynamic.sqlserver;
 import java.sql.JDBCType;
 import java.util.Arrays;
 
-import org.apache.ibatis.type.JdbcType;
 import org.mybatis.dynamic.sql.BindableColumn;
 import org.mybatis.dynamic.sql.select.function.AbstractFunction;
 import org.mybatis.dynamic.sql.select.function.MultipleColumnFunction;
