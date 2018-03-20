@@ -17,7 +17,7 @@ package org.mybatis.dynamic.sqlserver.select.string;
 
 import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 import static org.mybatis.dynamic.sql.SqlBuilder.select;
-import static org.mybatis.dynamic.sqlserver.SQLServerBuilder.character;
+import static org.mybatis.dynamic.sqlserver.SQLServerBuilder.left;
 
 import java.sql.JDBCType;
 
@@ -31,23 +31,23 @@ import org.mybatis.dynamic.sql.render.RenderingStrategy;
 import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
 
 @RunWith(JUnitPlatform.class)
-public class CharTest {
+public class LeftTest {
 
 	public static final SqlTable table = SqlTable.of("foo");
-    public static final SqlColumn<Integer> column1 = table.column("column1", JDBCType.INTEGER);
+    public static final SqlColumn<String> column1 = table.column("column1", JDBCType.VARCHAR);
     
     @Test
-    public void testChar() {
-        SelectStatementProvider selectStatement = select(character(column1).as("A_COLUMN1"))
+    public void testLeft() {
+        SelectStatementProvider selectStatement = select(left(column1, 2).as("A_COLUMN1"))
                 .from(table, "a")
-                .where(character(column1), isEqualTo(1))
+                .where(left(column1, 3), isEqualTo("ABC"))
                 .build()
                 .render(RenderingStrategy.MYBATIS3);
 
         SoftAssertions.assertSoftly(softly -> {
-            String expectedFullStatement = "select CHAR(a.column1) as A_COLUMN1 "
+            String expectedFullStatement = "select LEFT(a.column1, 2) as A_COLUMN1 "
                     + "from foo a "
-                    + "where CHAR(a.column1) = #{parameters.p1,jdbcType=VARCHAR}";
+                    + "where LEFT(a.column1, 3) = #{parameters.p1,jdbcType=VARCHAR}";
 
             softly.assertThat(selectStatement.getSelectStatement()).isEqualTo(expectedFullStatement);
         });
