@@ -1,11 +1,10 @@
-package org.mybatis.dynamic.sqlserver.select;
+package org.mybatis.dynamic.sqlserver.select.string;
 
 import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 import static org.mybatis.dynamic.sql.SqlBuilder.select;
-import static org.mybatis.dynamic.sqlserver.SQLServerBuilder.ascii;
+import static org.mybatis.dynamic.sqlserver.SQLServerBuilder.character;
 
 import java.sql.JDBCType;
-import java.util.Date;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
@@ -17,25 +16,23 @@ import org.mybatis.dynamic.sql.render.RenderingStrategy;
 import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
 
 @RunWith(JUnitPlatform.class)
-public class FunctionsTest {
+public class CharTest {
 
 	public static final SqlTable table = SqlTable.of("foo");
-    public static final SqlColumn<Date> column1 = table.column("column1", JDBCType.DATE);
-    public static final SqlColumn<Integer> column2 = table.column("column2", JDBCType.INTEGER);
-    public static final SqlColumn<String> column3 = table.column("column3", JDBCType.VARCHAR);
+    public static final SqlColumn<Integer> column1 = table.column("column1", JDBCType.INTEGER);
     
     @Test
     public void testAscii() {
-        SelectStatementProvider selectStatement = select(ascii(column3).as("A_COLUMN3"))
+        SelectStatementProvider selectStatement = select(character(column1).as("A_COLUMN1"))
                 .from(table, "a")
-                .where(ascii(column3), isEqualTo("A"))
+                .where(character(column1), isEqualTo(1))
                 .build()
                 .render(RenderingStrategy.MYBATIS3);
 
         SoftAssertions.assertSoftly(softly -> {
-            String expectedFullStatement = "select ASCII(a.column3) as A_COLUMN3 "
+            String expectedFullStatement = "select CHAR(a.column1) as A_COLUMN1 "
                     + "from foo a "
-                    + "where ASCII(a.column3) = #{parameters.p1,jdbcType=VARCHAR}";
+                    + "where CHAR(a.column1) = #{parameters.p1,jdbcType=VARCHAR}";
 
             softly.assertThat(selectStatement.getSelectStatement()).isEqualTo(expectedFullStatement);
         });
