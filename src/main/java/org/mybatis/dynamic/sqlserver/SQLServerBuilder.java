@@ -22,6 +22,7 @@ import org.mybatis.dynamic.sql.BindableColumn;
 import org.mybatis.dynamic.sql.select.function.AbstractFunction;
 import org.mybatis.dynamic.sql.select.function.MultipleColumnFunction;
 import org.mybatis.dynamic.sql.select.function.SimpleColumnFunction;
+import org.mybatis.dynamic.sql.select.function.SimpleColumnWithParametersFirstFunction;
 import org.mybatis.dynamic.sql.select.function.SimpleColumnWithParametersFunction;
 
 public interface SQLServerBuilder {
@@ -35,11 +36,11 @@ public interface SQLServerBuilder {
 	}
 	
 	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFunction<String, U> charindex(BindableColumn<String> column, String substring) {
-		return SimpleColumnWithParametersFunction.of(column, "CHARINDEX", Arrays.asList("'" + substring + "'"), JDBCType.INTEGER);
+		return SimpleColumnWithParametersFunction.of(column, "CHARINDEX", Arrays.asList(substring), JDBCType.INTEGER);
 	}
 	
 	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFunction<String, U> charindex(BindableColumn<String> column, String substring, Integer startPosition) {
-		return SimpleColumnWithParametersFunction.of(column, "CHARINDEX", Arrays.asList("'" + substring + "'", startPosition), JDBCType.INTEGER);
+		return SimpleColumnWithParametersFunction.of(column, "CHARINDEX", Arrays.asList(substring, startPosition), JDBCType.INTEGER);
 	}
 	
 	@SafeVarargs
@@ -65,5 +66,25 @@ public interface SQLServerBuilder {
 	
 	static <U extends AbstractFunction<String, U>> SimpleColumnFunction<String, U> ltrim(BindableColumn<String> column) {
 		return SimpleColumnFunction.of(column, "LTRIM");
+	}
+	
+	static <U extends AbstractFunction<Integer, U>> SimpleColumnFunction<Integer, U> nchar(BindableColumn<Integer> column) {
+        return SimpleColumnFunction.of(column, "NCHAR", JDBCType.NVARCHAR);
+    }
+	
+	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFirstFunction<String, U> patindex(String pattern, BindableColumn<String> column) {
+		return SimpleColumnWithParametersFirstFunction.of(column, "PATINDEX", Arrays.asList(pattern));
+	}
+	
+	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFunction<String, U> replace(BindableColumn<String> column, String stringToReplace, String replacementString) {
+		return SimpleColumnWithParametersFunction.of(column, "REPLACE", Arrays.asList(stringToReplace, replacementString));
+	}
+	
+	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFunction<String, U> right(BindableColumn<String> column, Integer numberOfChars) {
+		return SimpleColumnWithParametersFunction.of(column, "RIGHT", Arrays.asList(numberOfChars));
+	}
+	
+	static <U extends AbstractFunction<String, U>> SimpleColumnFunction<String, U> rtrim(BindableColumn<String> column) {
+		return SimpleColumnFunction.of(column, "RTRIM");
 	}
 }

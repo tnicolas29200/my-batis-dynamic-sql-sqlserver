@@ -9,9 +9,9 @@ import org.mybatis.dynamic.sql.render.TableAliasCalculator;
 
 public class SimpleColumnWithParametersFunction<T, U extends AbstractFunction<T, U>> extends AbstractFunction<T, SimpleColumnWithParametersFunction<T,U>> {
     
-	private String functionName;
-	private JDBCType jdbcType;
-	private List<Object> parameters;
+	protected String functionName;
+	protected JDBCType jdbcType;
+	protected List<Object> parameters;
 	
     protected SimpleColumnWithParametersFunction(BindableColumn<T> column, String functionName, List<Object> parameters) {
 		super(column);
@@ -29,7 +29,11 @@ public class SimpleColumnWithParametersFunction<T, U extends AbstractFunction<T,
 		StringBuilder builder = new StringBuilder(functionName + "(" + column.renderWithTableAlias(tableAliasCalculator));
 		for (Object parameter: this.parameters) {
 			builder.append(", ");
-			builder.append(parameter);
+			if (parameter instanceof String) {
+				builder.append("'" + parameter + "'");
+			} else {
+				builder.append(parameter);
+			}
 		}
 		builder.append(")");
 		return builder.toString();
