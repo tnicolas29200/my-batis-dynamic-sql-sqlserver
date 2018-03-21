@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.mybatis.dynamic.sql.select.function;
+package org.mybatis.dynamic.sql.select.function.columnFunctions;
 
 import java.sql.JDBCType;
 import java.util.ArrayList;
@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 import org.mybatis.dynamic.sql.BasicColumn;
 import org.mybatis.dynamic.sql.BindableColumn;
 import org.mybatis.dynamic.sql.render.TableAliasCalculator;
+import org.mybatis.dynamic.sql.select.function.abs.AbstractFunction;
 
 public class MultipleColumnFunction<T> extends AbstractFunction<T> {
     

@@ -59,7 +59,13 @@ public class StringFunctionsTest {
                 .from(table, "a")
                 .where(ascii(column1), isEqualTo("A"))
                 .build().render(RenderingStrategy.MYBATIS3);
-        SoftAssertions.assertSoftly(softly -> softly.assertThat(selectStatement.getSelectStatement()).isEqualTo("select ASCII(a.column1) as A_COLUMN1 from foo a where ASCII(a.column1) = #{parameters.p1,jdbcType=VARCHAR}"));
+        SoftAssertions.assertSoftly(softly -> softly.assertThat(selectStatement.getSelectStatement()).isEqualTo("select ASCII(a.column1) as A_COLUMN1 from foo a where ASCII(a.column1) = #{parameters.p1,jdbcType=INTEGER}"));
+        
+        SelectStatementProvider selectStatement2 = select(ascii("1").as("A_COLUMN1"))
+                .from(table, "a")
+                .where(ascii("2"), isEqualTo("A"))
+                .build().render(RenderingStrategy.MYBATIS3);
+        SoftAssertions.assertSoftly(softly -> softly.assertThat(selectStatement2.getSelectStatement()).isEqualTo("select ASCII('1') as A_COLUMN1 from foo a where ASCII('2') = #{parameters.p1,jdbcType=INTEGER}"));
     }
     
     @Test

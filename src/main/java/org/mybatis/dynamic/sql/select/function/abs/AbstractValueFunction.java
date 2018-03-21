@@ -13,8 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.mybatis.dynamic.sql.select.function;
+package org.mybatis.dynamic.sql.select.function.abs;
 
+import java.sql.JDBCType;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -23,9 +24,15 @@ import org.mybatis.dynamic.sql.BindableColumn;
 public abstract class AbstractValueFunction<T> implements BindableColumn<T> {
     protected T value;
     protected String alias;
+    protected JDBCType jdbcType;
 
     protected AbstractValueFunction(T value) {
         this.value = Objects.requireNonNull(value);
+    }
+    
+    protected AbstractValueFunction(T value, JDBCType jdbcType) {
+        this(value);
+        this.jdbcType = jdbcType;
     }
     
     @Override
@@ -42,6 +49,14 @@ public abstract class AbstractValueFunction<T> implements BindableColumn<T> {
 
     @Override
     public Optional<String> typeHandler() {
+        return Optional.empty();
+    }
+    
+    @Override
+    public Optional<JDBCType> jdbcType() {
+    	if (jdbcType != null) {
+    		return Optional.of(jdbcType);	
+    	}
         return Optional.empty();
     }
     

@@ -1,4 +1,4 @@
-package org.mybatis.dynamic.sql.select.function;
+package org.mybatis.dynamic.sql.select.function.columnFunctions;
 
 import java.sql.JDBCType;
 import java.util.List;

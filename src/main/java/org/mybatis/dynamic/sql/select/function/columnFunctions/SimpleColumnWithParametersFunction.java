@@ -1,4 +1,4 @@
-package org.mybatis.dynamic.sql.select.function;
+package org.mybatis.dynamic.sql.select.function.columnFunctions;
 
 import java.sql.JDBCType;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.mybatis.dynamic.sql.BindableColumn;
 import org.mybatis.dynamic.sql.render.TableAliasCalculator;
+import org.mybatis.dynamic.sql.select.function.abs.AbstractFunction;
 
 public class SimpleColumnWithParametersFunction<T> extends AbstractFunction<T> {
     
