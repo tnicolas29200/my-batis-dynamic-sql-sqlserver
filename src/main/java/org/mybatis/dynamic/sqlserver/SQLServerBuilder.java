@@ -19,7 +19,7 @@ import java.sql.JDBCType;
 import java.util.Arrays;
 
 import org.mybatis.dynamic.sql.BindableColumn;
-import org.mybatis.dynamic.sql.select.function.AbstractFunction;
+import org.mybatis.dynamic.sql.select.function.AbstractValueFunction;
 import org.mybatis.dynamic.sql.select.function.MultipleColumnFunction;
 import org.mybatis.dynamic.sql.select.function.SimpleColumnFunction;
 import org.mybatis.dynamic.sql.select.function.SimpleColumnWithParametersFirstFunction;
@@ -27,64 +27,64 @@ import org.mybatis.dynamic.sql.select.function.SimpleColumnWithParametersFunctio
 
 public interface SQLServerBuilder {
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnFunction<String, U> ascii(BindableColumn<String> column) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnFunction<String> ascii(BindableColumn<String> column) {
         return SimpleColumnFunction.of(column, "ASCII");
     }
 	
-	static <U extends AbstractFunction<Integer, U>> SimpleColumnFunction<Integer, U> character(BindableColumn<Integer> column) {
+	static <U extends AbstractValueFunction<Integer>> SimpleColumnFunction<Integer> character(BindableColumn<Integer> column) {
 		return SimpleColumnFunction.of(column, "CHAR", JDBCType.VARCHAR);
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFunction<String, U> charindex(BindableColumn<String> column, String substring) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnWithParametersFunction<String> charindex(BindableColumn<String> column, String substring) {
 		return SimpleColumnWithParametersFunction.of(column, "CHARINDEX", Arrays.asList(substring), JDBCType.INTEGER);
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFunction<String, U> charindex(BindableColumn<String> column, String substring, Integer startPosition) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnWithParametersFunction<String> charindex(BindableColumn<String> column, String substring, Integer startPosition) {
 		return SimpleColumnWithParametersFunction.of(column, "CHARINDEX", Arrays.asList(substring, startPosition), JDBCType.INTEGER);
 	}
 	
 	@SafeVarargs
-	static <U extends MultipleColumnFunction<String, U>> MultipleColumnFunction<String, U> concat(BindableColumn<String> firstColumn, BindableColumn<String> secondColumn, BindableColumn<String>... subsequentColumns) {
+	static <U extends MultipleColumnFunction<String>> MultipleColumnFunction<String> concat(BindableColumn<String> firstColumn, BindableColumn<String> secondColumn, BindableColumn<String>... subsequentColumns) {
 		return MultipleColumnFunction.of(firstColumn, secondColumn, Arrays.asList(subsequentColumns), "CONCAT");
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnFunction<String, U> datalength(BindableColumn<String> column) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnFunction<String> datalength(BindableColumn<String> column) {
 		return SimpleColumnFunction.of(column, "DATALENGTH", JDBCType.INTEGER);
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFunction<String, U> left(BindableColumn<String> column, Integer numberOfChars) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnWithParametersFunction<String> left(BindableColumn<String> column, Integer numberOfChars) {
 		return SimpleColumnWithParametersFunction.of(column, "LEFT", Arrays.asList(numberOfChars));
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnFunction<String, U> len(BindableColumn<String> column) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnFunction<String> len(BindableColumn<String> column) {
 		return SimpleColumnFunction.of(column, "LEN", JDBCType.INTEGER);
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnFunction<String, U> lower(BindableColumn<String> column) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnFunction<String> lower(BindableColumn<String> column) {
 		return SimpleColumnFunction.of(column, "LOWER");
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnFunction<String, U> ltrim(BindableColumn<String> column) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnFunction<String> ltrim(BindableColumn<String> column) {
 		return SimpleColumnFunction.of(column, "LTRIM");
 	}
 	
-	static <U extends AbstractFunction<Integer, U>> SimpleColumnFunction<Integer, U> nchar(BindableColumn<Integer> column) {
+	static <U extends AbstractValueFunction<Integer>> SimpleColumnFunction<Integer> nchar(BindableColumn<Integer> column) {
         return SimpleColumnFunction.of(column, "NCHAR", JDBCType.NVARCHAR);
     }
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFirstFunction<String, U> patindex(String pattern, BindableColumn<String> column) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnWithParametersFirstFunction<String> patindex(String pattern, BindableColumn<String> column) {
 		return SimpleColumnWithParametersFirstFunction.of(column, "PATINDEX", Arrays.asList(pattern));
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFunction<String, U> replace(BindableColumn<String> column, String stringToReplace, String replacementString) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnWithParametersFunction<String> replace(BindableColumn<String> column, String stringToReplace, String replacementString) {
 		return SimpleColumnWithParametersFunction.of(column, "REPLACE", Arrays.asList(stringToReplace, replacementString));
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnWithParametersFunction<String, U> right(BindableColumn<String> column, Integer numberOfChars) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnWithParametersFunction<String> right(BindableColumn<String> column, Integer numberOfChars) {
 		return SimpleColumnWithParametersFunction.of(column, "RIGHT", Arrays.asList(numberOfChars));
 	}
 	
-	static <U extends AbstractFunction<String, U>> SimpleColumnFunction<String, U> rtrim(BindableColumn<String> column) {
+	static <U extends AbstractValueFunction<String>> SimpleColumnFunction<String> rtrim(BindableColumn<String> column) {
 		return SimpleColumnFunction.of(column, "RTRIM");
 	}
 }

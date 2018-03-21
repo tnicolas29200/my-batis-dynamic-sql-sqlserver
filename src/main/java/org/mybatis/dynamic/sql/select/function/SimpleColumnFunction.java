@@ -20,9 +20,8 @@ import java.util.Optional;
 
 import org.mybatis.dynamic.sql.BindableColumn;
 import org.mybatis.dynamic.sql.render.TableAliasCalculator;
-import org.mybatis.dynamic.sql.select.function.AbstractFunction;
 
-public class SimpleColumnFunction<T, U extends AbstractFunction<T, U>> extends AbstractFunction<T, SimpleColumnFunction<T,U>> {
+public class SimpleColumnFunction<T> extends AbstractFunction<T> {
     
 	private String functionName;
 	private JDBCType jdbcType;
@@ -44,16 +43,16 @@ public class SimpleColumnFunction<T, U extends AbstractFunction<T, U>> extends A
 	                + ")"; //$NON-NLS-1$
     }
 	
-	public static <T, U extends AbstractFunction<T, U>> SimpleColumnFunction<T, U> of(BindableColumn<T> column, String functionName) {
-        return new SimpleColumnFunction<T, U>(column, functionName);
+	public static <T> SimpleColumnFunction<T> of(BindableColumn<T> column, String functionName) {
+        return new SimpleColumnFunction<T>(column, functionName);
     }
 
-	public static <T, U extends AbstractFunction<T, U>> SimpleColumnFunction<T, U> of(BindableColumn<T> column, String functionName, JDBCType jdbcType) {
-        return new SimpleColumnFunction<T, U>(column, functionName, jdbcType);
+	public static <T> SimpleColumnFunction<T> of(BindableColumn<T> column, String functionName, JDBCType jdbcType) {
+        return new SimpleColumnFunction<T>(column, functionName, jdbcType);
     }
 	
 	@Override
-	protected SimpleColumnFunction<T, U> copy() {
+	protected SimpleColumnFunction<T> copy() {
 		return new SimpleColumnFunction<>(column, functionName, jdbcType);
 	}
 	

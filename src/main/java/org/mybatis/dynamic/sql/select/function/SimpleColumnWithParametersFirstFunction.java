@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.mybatis.dynamic.sql.BindableColumn;
 import org.mybatis.dynamic.sql.render.TableAliasCalculator;
 
-public class SimpleColumnWithParametersFirstFunction<T, U extends AbstractFunction<T, U>> extends SimpleColumnWithParametersFunction<T, U>  {
+public class SimpleColumnWithParametersFirstFunction<T> extends SimpleColumnWithParametersFunction<T>  {
     
     protected SimpleColumnWithParametersFirstFunction(BindableColumn<T> column, String functionName, List<Object> parameters) {
 		super(column, functionName, parameters);
@@ -37,16 +37,16 @@ public class SimpleColumnWithParametersFirstFunction<T, U extends AbstractFuncti
 		return builder.toString();
     }
 	
-	public static <T, U extends AbstractFunction<T, U>> SimpleColumnWithParametersFirstFunction<T, U> of(BindableColumn<T> column, String functionName, List<Object> parameters) {
-        return new SimpleColumnWithParametersFirstFunction<T, U>(column, functionName, parameters);
+	public static <T> SimpleColumnWithParametersFirstFunction<T> of(BindableColumn<T> column, String functionName, List<Object> parameters) {
+        return new SimpleColumnWithParametersFirstFunction<T>(column, functionName, parameters);
     }
 
-	public static <T, U extends AbstractFunction<T, U>> SimpleColumnWithParametersFirstFunction<T, U> of(BindableColumn<T> column, String functionName, List<Object> parameters, JDBCType jdbcType) {
-        return new SimpleColumnWithParametersFirstFunction<T, U>(column, functionName, parameters, jdbcType);
+	public static <T> SimpleColumnWithParametersFirstFunction<T> of(BindableColumn<T> column, String functionName, List<Object> parameters, JDBCType jdbcType) {
+        return new SimpleColumnWithParametersFirstFunction<>(column, functionName, parameters, jdbcType);
     }
 	
 	@Override
-	protected SimpleColumnWithParametersFirstFunction<T, U> copy() {
+	protected SimpleColumnWithParametersFirstFunction<T> copy() {
 		return new SimpleColumnWithParametersFirstFunction<>(column, functionName, parameters, jdbcType);
 	}
 	

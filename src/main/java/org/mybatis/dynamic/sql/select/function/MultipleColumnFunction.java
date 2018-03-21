@@ -27,9 +27,8 @@ import java.util.stream.Stream;
 import org.mybatis.dynamic.sql.BasicColumn;
 import org.mybatis.dynamic.sql.BindableColumn;
 import org.mybatis.dynamic.sql.render.TableAliasCalculator;
-import org.mybatis.dynamic.sql.select.function.AbstractFunction;
 
-public class MultipleColumnFunction<T, U extends MultipleColumnFunction<T, U>> extends AbstractFunction<T, MultipleColumnFunction<T,U>> {
+public class MultipleColumnFunction<T> extends AbstractFunction<T> {
     
 	private String functionName;
     protected BasicColumn secondColumn;
@@ -56,11 +55,11 @@ public class MultipleColumnFunction<T, U extends MultipleColumnFunction<T, U>> e
                 .collect(Collectors.joining(padOperator(), functionName + "(", ")"));
     }
     
-    public static <T, U extends MultipleColumnFunction<T, U>> MultipleColumnFunction<T, U> of(BindableColumn<T> column, BasicColumn secondColumn, List<BasicColumn> subsequentColumns, String functionName) {
+    public static <T> MultipleColumnFunction<T> of(BindableColumn<T> column, BasicColumn secondColumn, List<BasicColumn> subsequentColumns, String functionName) {
         return new MultipleColumnFunction<>(column, secondColumn, subsequentColumns, functionName);
     }
 
-	public static <T, U extends MultipleColumnFunction<T, U>> MultipleColumnFunction<T, U> of(BindableColumn<T> column, BasicColumn secondColumn, List<BasicColumn> subsequentColumns, String functionName, JDBCType jdbcType) {
+	public static <T> MultipleColumnFunction<T> of(BindableColumn<T> column, BasicColumn secondColumn, List<BasicColumn> subsequentColumns, String functionName, JDBCType jdbcType) {
         return new MultipleColumnFunction<>(column, secondColumn, subsequentColumns, functionName, jdbcType);
     }
     
@@ -77,7 +76,7 @@ public class MultipleColumnFunction<T, U extends MultipleColumnFunction<T, U>> e
     }
 
 	@Override
-	protected MultipleColumnFunction<T, U> copy() {
+	protected MultipleColumnFunction<T> copy() {
 		return new MultipleColumnFunction<>(column, secondColumn, subsequentColumns, functionName, jdbcType);
 	}
 }

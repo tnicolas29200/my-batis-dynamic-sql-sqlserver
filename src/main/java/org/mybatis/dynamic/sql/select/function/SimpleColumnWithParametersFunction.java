@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.mybatis.dynamic.sql.BindableColumn;
 import org.mybatis.dynamic.sql.render.TableAliasCalculator;
 
-public class SimpleColumnWithParametersFunction<T, U extends AbstractFunction<T, U>> extends AbstractFunction<T, SimpleColumnWithParametersFunction<T,U>> {
+public class SimpleColumnWithParametersFunction<T> extends AbstractFunction<T> {
     
 	protected String functionName;
 	protected JDBCType jdbcType;
@@ -39,16 +39,16 @@ public class SimpleColumnWithParametersFunction<T, U extends AbstractFunction<T,
 		return builder.toString();
     }
 	
-	public static <T, U extends AbstractFunction<T, U>> SimpleColumnWithParametersFunction<T, U> of(BindableColumn<T> column, String functionName, List<Object> parameters) {
-        return new SimpleColumnWithParametersFunction<T, U>(column, functionName, parameters);
+	public static <T> SimpleColumnWithParametersFunction<T> of(BindableColumn<T> column, String functionName, List<Object> parameters) {
+        return new SimpleColumnWithParametersFunction<T>(column, functionName, parameters);
     }
 
-	public static <T, U extends AbstractFunction<T, U>> SimpleColumnWithParametersFunction<T, U> of(BindableColumn<T> column, String functionName, List<Object> parameters, JDBCType jdbcType) {
-        return new SimpleColumnWithParametersFunction<T, U>(column, functionName, parameters, jdbcType);
+	public static <T> SimpleColumnWithParametersFunction<T> of(BindableColumn<T> column, String functionName, List<Object> parameters, JDBCType jdbcType) {
+        return new SimpleColumnWithParametersFunction<T>(column, functionName, parameters, jdbcType);
     }
 	
 	@Override
-	protected SimpleColumnWithParametersFunction<T, U> copy() {
+	protected SimpleColumnWithParametersFunction<T> copy() {
 		return new SimpleColumnWithParametersFunction<>(column, functionName, parameters, jdbcType);
 	}
 	
