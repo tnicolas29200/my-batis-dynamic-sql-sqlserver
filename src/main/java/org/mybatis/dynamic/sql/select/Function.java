@@ -24,42 +24,37 @@ import org.mybatis.dynamic.sql.BindableColumn;
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.render.TableAliasCalculator;
 
-public class Function<T, U> implements BindableColumn<U> {
+public class Function<U> implements BindableColumn<U> {
     
-	protected T value;
 	protected Collection<Object> parameters;
     protected String alias;
     protected JDBCType jdbcType;
 	private String functionName;
 	
-    protected Function(T value, String functionName) {
-		this.value = value;
+	protected Function(String functionName) {
 		this.functionName = functionName;
 	}
-    
-    protected Function(T value, String functionName, JDBCType jdbcType) {
-		this(value, functionName);
+	
+	protected Function(String functionName, Collection<Object> parameters) {
+		this(functionName);
+		this.parameters = parameters;
+	}
+	
+    protected Function(String functionName, JDBCType jdbcType, Collection<Object> parameters) {
+    	this(functionName, parameters);
 		this.jdbcType = jdbcType;
 	}
     
-    protected Function(T value, String functionName, Collection<Object> parameters) {
-		this.value = value;
-		this.functionName = functionName;
-		this.parameters = parameters;
-	}
-    
-    protected Function(T value, String functionName, JDBCType jdbcType, Collection<Object> parameters) {
-		this(value, functionName);
-		this.jdbcType = jdbcType;
-		this.parameters = parameters;
-	}
-
 	@Override
     public String renderWithTableAlias(TableAliasCalculator tableAliasCalculator) {
-		 StringBuilder builder = new StringBuilder(functionName + "(" + format(value, tableAliasCalculator));
-		 if (parameters != null) {
+		 StringBuilder builder = new StringBuilder(functionName + "(");
+		 if (this.parameters != null) {
+			 int index = 0;
 			 for (Object value: parameters) {
-				 builder.append(", ");
+				 if (index > 0) {
+					 builder.append(", ");
+				 }
+				 index++;
 				 builder.append(format(value, tableAliasCalculator)); 
 			 }
 		 }
@@ -82,24 +77,24 @@ public class Function<T, U> implements BindableColumn<U> {
 		 }
 	}
 	
-	public static <T, U> Function<T, U> of(T value, String functionName) {
-        return new Function<>(value, functionName);
-    }
-
-	public static <T, U> Function<T, U> of(T value, String functionName, JDBCType jdbcType) {
-        return new Function<>(value, functionName, jdbcType);
+	public static <U> Function<U> of(String functionName) {
+        return new Function<>(functionName);
     }
 	
-	public static <T, U> Function<T, U> of(T value, String functionName, Collection<Object> parameters) {
-        return new Function<>(value, functionName, parameters);
+	public static <U> Function<U> of(String functionName, Collection<Object> parameters) {
+        return new Function<>(functionName, parameters);
     }
 
-	public static <T, U> Function<T, U> of(T value, String functionName, JDBCType jdbcType, Collection<Object> parameters) {
-        return new Function<>(value, functionName, jdbcType, parameters);
+	public static <U> Function<U> of(String functionName, JDBCType jdbcType) {
+        return new Function<>(functionName, jdbcType, null);
+    }
+
+	public static <U> Function<U> of(String functionName, JDBCType jdbcType, Collection<Object> parameters) {
+        return new Function<>(functionName, jdbcType, parameters);
     }
 	
-	protected Function<T, U> copy() {
-		return new Function<>(value, functionName, jdbcType, parameters);
+	protected Function<U> copy() {
+		return new Function<>(functionName, jdbcType, parameters);
 	}
 
 	@Override
@@ -109,7 +104,7 @@ public class Function<T, U> implements BindableColumn<U> {
 
 	@Override
 	public BindableColumn<U> as(String alias) {
-		Function<T, U> newThing = copy();
+		Function<U> newThing = copy();
         newThing.alias = alias;
         return newThing;
 	}
