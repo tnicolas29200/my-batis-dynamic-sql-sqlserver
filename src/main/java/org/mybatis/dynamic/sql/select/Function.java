@@ -16,7 +16,10 @@
 package org.mybatis.dynamic.sql.select;
 
 import java.sql.JDBCType;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 
 import org.mybatis.dynamic.sql.BasicColumn;
@@ -26,6 +29,8 @@ import org.mybatis.dynamic.sql.render.TableAliasCalculator;
 
 public class Function<U> implements BindableColumn<U> {
     
+	protected DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+	
 	protected Collection<Object> parameters;
     protected String alias;
     protected JDBCType jdbcType;
@@ -72,6 +77,8 @@ public class Function<U> implements BindableColumn<U> {
 			 return ((SqlColumn) param).renderWithTableAlias(tableAliasCalculator);
 		 } else if  (param instanceof BindableColumn) {
 			 return ((BindableColumn) param).renderWithTableAlias(tableAliasCalculator);
+		 } else if (param instanceof Date) {
+			 return dateFormat.format((Date) param);
 		 } else {
 			 return param.toString();
 		 }

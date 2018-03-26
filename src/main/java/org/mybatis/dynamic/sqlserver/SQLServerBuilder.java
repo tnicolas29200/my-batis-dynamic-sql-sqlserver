@@ -15,569 +15,644 @@
  */
 package org.mybatis.dynamic.sqlserver;
 
-import java.sql.JDBCType;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Date;
 
 import org.mybatis.dynamic.sql.BindableColumn;
+import org.mybatis.dynamic.sql.select.DateInterval;
 import org.mybatis.dynamic.sql.select.Function;
 
 public interface SQLServerBuilder {
 	
-	final static String ASCII = "ASCII";
-	final static String CHAR = "CHAR";
-	final static String CHARINDEX = "CHARINDEX";
-	final static String CONCAT = "CONCAT";
-	final static String DATALENGTH = "DATALENGTH";
-	final static String LEFT = "LEFT";
-	final static String LEN = "LEN";
-	final static String LOWER = "LOWER";
-	final static String LTRIM = "LTRIM";
-	final static String NCHAR = "NCHAR";
-	final static String PATINDEX = "PATINDEX";
-	final static String REPLACE = "REPLACE";
-	final static String RIGHT = "RIGHT";
-	final static String RTRIM = "RTRIM";
-	final static String SPACE = "SPACE";
-	final static String STR = "STR";
-	final static String STUFF = "STUFF";
-	final static String SUBSTRING = "SUBSTRING";
-	final static String UPPER = "UPPER";
-	
-	final static String ABS = "ABS";
-	final static String AVG = "AVG";
-	final static String CEILING = "CEILING";
-	final static String COUNT = "COUNT";
-	final static String FLOOR = "FLOOR";
-	final static String MAX = "MAX";
-	final static String MIN = "MIN";
-	final static String RAND = "RAND";
-	final static String ROUND = "ROUND";
-	final static String SIGN = "SIGN";
-	final static String SUM = "SUM";
-	
-	final static String DATEADD = "DATEADD";
-	final static String DATEDIFF = "DATEDIFF";
-	final static String DATENAME = "DATENAME";
-	final static String DATEPART = "DATEPART";
-	final static String DAY = "DAY";
-	final static String GETDATE = "GETDATE";
-	final static String GETUTCDATE = "GETUTCDATE";
-	final static String MONTH = "MONTH";
-	final static String YEAR = "YEAR";
-	
-	static Function<Integer> ascii(BindableColumn<String> column) {
-        return Function.of(ASCII, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> ascii(BindableColumn<String> character) {
+		return SqlServerHelper.ascii(character);
     }
 	
 	static Function<Integer> ascii(String character) {
-        return Function.of(ASCII, JDBCType.INTEGER, extractParameters(character));
+		return SqlServerHelper.ascii(character);
     }
 	
-	static Function<String> character(BindableColumn<Integer> column) {
-		return Function.of(CHAR, JDBCType.VARCHAR, extractParameters(column));
+	static Function<String> character(BindableColumn<Integer> ascii) {
+		return SqlServerHelper.character(ascii);
 	}
 	
 	static Function<String> character(Integer ascii) {
-		return Function.of(CHAR, JDBCType.VARCHAR, extractParameters(ascii));
+		return SqlServerHelper.character(ascii);
 	}
 	
-	static Function<Integer> charindex(BindableColumn<String> column, BindableColumn<String> substring) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring));
+	static Function<Integer> charindex(BindableColumn<String> text, BindableColumn<String> substring) {
+		return SqlServerHelper.charindex(text, substring);
 	}
 	
-	static Function<Integer> charindex(BindableColumn<String> column, String substring) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring));
+	static Function<Integer> charindex(BindableColumn<String> text, String substring) {
+		return SqlServerHelper.charindex(text, substring);
 	}
 	
-	static Function<Integer> charindex(String column, BindableColumn<String> substring) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring));
+	static Function<Integer> charindex(String text, BindableColumn<String> substring) {
+		return SqlServerHelper.charindex(text, substring);
 	}
 
 	static Function<Integer> charindex(String text, String substring) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(text, substring));
+		return SqlServerHelper.charindex(text, substring);
 	}
 	
-	static Function<Integer> charindex(BindableColumn<String> column, BindableColumn<String> substring, BindableColumn<Integer> startPosition) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring, startPosition));
+	static Function<Integer> charindex(BindableColumn<String> text, BindableColumn<String> substring, BindableColumn<Integer> startPosition) {
+		return SqlServerHelper.charindex(text, substring, startPosition);
 	}
 	
-	static Function<Integer> charindex(BindableColumn<String> column, BindableColumn<String> substring, Integer startPosition) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring, startPosition));
+	static Function<Integer> charindex(BindableColumn<String> text, BindableColumn<String> substring, Integer startPosition) {
+		return SqlServerHelper.charindex(text, substring, startPosition);
 	}
 	
-	static Function<Integer> charindex(BindableColumn<String> column, String substring, BindableColumn<Integer> startPosition) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring, startPosition));
+	static Function<Integer> charindex(BindableColumn<String> text, String substring, BindableColumn<Integer> startPosition) {
+		return SqlServerHelper.charindex(text, substring, startPosition);
 	}
 	
-	static Function<Integer> charindex(BindableColumn<String> column, String substring, Integer startPosition) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring, startPosition));
+	static Function<Integer> charindex(BindableColumn<String> text, String substring, Integer startPosition) {
+		return SqlServerHelper.charindex(text, substring, startPosition);
 	}
 	
-	static Function<Integer> charindex(String column, BindableColumn<String> substring, BindableColumn<Integer> startPosition) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring, startPosition));
+	static Function<Integer> charindex(String text, BindableColumn<String> substring, BindableColumn<Integer> startPosition) {
+		return SqlServerHelper.charindex(text, substring, startPosition);
 	}
 	
-	static Function<Integer> charindex(String column, BindableColumn<String> substring, Integer startPosition) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring, startPosition));
+	static Function<Integer> charindex(String text, BindableColumn<String> substring, Integer startPosition) {
+		return SqlServerHelper.charindex(text, substring, startPosition);
 	}
 	
-	static Function<Integer> charindex(String column, String substring, BindableColumn<Integer> startPosition) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(column, substring, startPosition));
+	static Function<Integer> charindex(String text, String substring, BindableColumn<Integer> startPosition) {
+		return SqlServerHelper.charindex(text, substring, startPosition);
 	}
 	
 	static Function<Integer> charindex(String text, String substring, Integer startPosition) {
-		return Function.of(CHARINDEX, JDBCType.INTEGER, extractParameters(text, substring, startPosition));
+		return SqlServerHelper.charindex(text, substring, startPosition);
 	}
 	
 	@SafeVarargs
-	static Function<String> concat(BindableColumn<String> firstColumn, BindableColumn<String> secondColumn, Object... subsequentColumns) {
-		return Function.of(CONCAT, JDBCType.VARCHAR, extractParameters(firstColumn, secondColumn, subsequentColumns));	
+	static Function<String> concat(BindableColumn<String> text1, BindableColumn<String> text2, Object... otherText) {
+		return SqlServerHelper.concat(text1, text2, otherText);	
 	}
 	
 	@SafeVarargs
-	static Function<String> concat(BindableColumn<String> firstColumn, String secondColumn, Object... subsequentColumns) {
-		return Function.of(CONCAT, JDBCType.VARCHAR, extractParameters(firstColumn, secondColumn, subsequentColumns));	
+	static Function<String> concat(BindableColumn<String> text1, String text2, Object... otherText) {
+		return SqlServerHelper.concat(text1, text2, otherText);	
 	}
 	
 	@SafeVarargs
 	static Function<String> concat(String text1, BindableColumn<String> text2, Object... otherText) {
-		return Function.of(CONCAT, JDBCType.VARCHAR, extractParameters(text1, text2, otherText));	
+		return SqlServerHelper.concat(text1, text2, otherText);
 	}
 	
 	@SafeVarargs
 	static Function<String> concat(String text1, String text2, Object... otherText) {
-		return Function.of(CONCAT, JDBCType.VARCHAR, extractParameters(text1, text2, otherText));	
+		return SqlServerHelper.concat(text1, text2, otherText);
 	}
 	
-	static Function<Integer> datalength(BindableColumn<String> column) {
-		return Function.of(DATALENGTH, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> datalength(BindableColumn<String> data) {
+		return SqlServerHelper.datalength(data);
 	}
 	
 	static Function<Integer> datalength(String data) {
-		return Function.of(DATALENGTH, JDBCType.INTEGER, extractParameters(data));
+		return SqlServerHelper.datalength(data);
 	}
 	
 	static Function<String> left(BindableColumn<String> text, BindableColumn<Integer> numberOfChars) {
-		return Function.of(LEFT, JDBCType.VARCHAR, extractParameters(text, numberOfChars));
+		return SqlServerHelper.left(text, numberOfChars);
 	}
 	
-	static Function<String> left(BindableColumn<String> column, Integer numberOfChars) {
-		return Function.of(LEFT, JDBCType.VARCHAR, extractParameters(column, numberOfChars));
+	static Function<String> left(BindableColumn<String> text, Integer numberOfChars) {
+		return SqlServerHelper.left(text, numberOfChars);
 	}
 	
 	static Function<String> left(String text, BindableColumn<Integer> numberOfChars) {
-		return Function.of(LEFT, JDBCType.VARCHAR, extractParameters(text, numberOfChars));
+		return SqlServerHelper.left(text, numberOfChars);
 	}
 	
 	static Function<String> left(String text, Integer numberOfChars) {
-		return Function.of(LEFT, JDBCType.VARCHAR, extractParameters(text, numberOfChars));
+		return SqlServerHelper.left(text, numberOfChars);
 	}
 	
-	static Function<Integer> len(BindableColumn<String> column) {
-		return Function.of(LEN, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> len(BindableColumn<String> text) {
+		return SqlServerHelper.len(text);
 	}
 	
 	static Function<Integer> len(String text) {
-		return Function.of(LEN, JDBCType.INTEGER, extractParameters(text));
+		return SqlServerHelper.len(text);
 	}
 	
-	static Function<String> lower(BindableColumn<String> column) {
-		return Function.of(LOWER, JDBCType.VARCHAR, extractParameters(column));
+	static Function<String> lower(BindableColumn<String> text) {
+		return SqlServerHelper.lower(text);
 	}
 	
 	static Function<String> lower(String text) {
-		return Function.of(LOWER, JDBCType.VARCHAR, extractParameters(text));
+		return SqlServerHelper.lower(text);
 	}
 	
-	static Function<String> ltrim(BindableColumn<String> column) {
-		return Function.of(LTRIM, JDBCType.VARCHAR, extractParameters(column));
+	static Function<String> ltrim(BindableColumn<String> text) {
+		return SqlServerHelper.ltrim(text);
 	}
 	
-	static Function<String> ltrim(String column) {
-		return Function.of(LTRIM, JDBCType.VARCHAR, extractParameters(column));
+	static Function<String> ltrim(String text) {
+		return SqlServerHelper.ltrim(text);
 	}
 	
-	static Function<String> nchar(BindableColumn<Integer> column) {
-        return Function.of(NCHAR, JDBCType.NVARCHAR, extractParameters(column));
+	static Function<String> nchar(BindableColumn<Integer> text) {
+		return SqlServerHelper.nchar(text);
     }
 	
 	static Function<String> nchar(Integer text) {
-        return Function.of(NCHAR, JDBCType.NVARCHAR, extractParameters(text));
+		return SqlServerHelper.nchar(text);
     }
 	
 	static Function<Integer> patindex(BindableColumn<String> pattern, BindableColumn<String> text) {
-		return Function.of(PATINDEX, JDBCType.INTEGER, extractParameters(pattern, text));
+		return SqlServerHelper.patindex(pattern, text);
 	}
 	
 	static Function<Integer> patindex(String pattern, BindableColumn<String> text) {
-		return Function.of(PATINDEX, JDBCType.INTEGER, extractParameters(pattern, text));
+		return SqlServerHelper.patindex(pattern, text);
 	}
 	
-	static Function<Integer> patindex(BindableColumn<String> column, String text) {
-		return Function.of(PATINDEX, JDBCType.INTEGER, extractParameters(column, text));
+	static Function<Integer> patindex(BindableColumn<String> pattern, String text) {
+		return SqlServerHelper.patindex(pattern, text);
 	}
 	
 	static Function<Integer> patindex(String pattern, String text) {
-		return Function.of(PATINDEX, JDBCType.INTEGER, extractParameters(pattern, text));
+		return SqlServerHelper.patindex(pattern, text);
 	}
 	
 	static Function<String> replace(BindableColumn<String> text, BindableColumn<String> stringToReplace, BindableColumn<String> replacementString) {
-		return Function.of(REPLACE, JDBCType.VARCHAR, extractParameters(text, stringToReplace, replacementString));
+		return SqlServerHelper.replace(text, stringToReplace, replacementString);
 	}
 	
 	static Function<String> replace(BindableColumn<String> text, BindableColumn<String> stringToReplace, String replacementString) {
-		return Function.of(REPLACE, JDBCType.VARCHAR, extractParameters(text, stringToReplace, replacementString));
+		return SqlServerHelper.replace(text, stringToReplace, replacementString);
 	}
 	
 	static Function<String> replace(BindableColumn<String> text, String stringToReplace, BindableColumn<String> replacementString) {
-		return Function.of(REPLACE, JDBCType.VARCHAR, extractParameters(text, stringToReplace, replacementString));
+		return SqlServerHelper.replace(text, stringToReplace, replacementString);
 	}
 	
-	static Function<String> replace(BindableColumn<String> column, String stringToReplace, String replacementString) {
-		return Function.of(REPLACE, JDBCType.VARCHAR, extractParameters(column, stringToReplace, replacementString));
+	static Function<String> replace(BindableColumn<String> text, String stringToReplace, String replacementString) {
+		return SqlServerHelper.replace(text, stringToReplace, replacementString);
 	}
 	
 	static Function<String> replace(String text, BindableColumn<String> stringToReplace, BindableColumn<String> replacementString) {
-		return Function.of(REPLACE, JDBCType.VARCHAR, extractParameters(text, stringToReplace, replacementString));
+		return SqlServerHelper.replace(text, stringToReplace, replacementString);
 	}
 	
 	static Function<String> replace(String text, BindableColumn<String> stringToReplace, String replacementString) {
-		return Function.of(REPLACE, JDBCType.VARCHAR, extractParameters(text, stringToReplace, replacementString));
+		return SqlServerHelper.replace(text, stringToReplace, replacementString);
 	}
 	
 	static Function<String> replace(String text, String stringToReplace, BindableColumn<String> replacementString) {
-		return Function.of(REPLACE, JDBCType.VARCHAR, extractParameters(text, stringToReplace, replacementString));
+		return SqlServerHelper.replace(text, stringToReplace, replacementString);
 	}
 	
 	static Function<String> replace(String text, String stringToReplace, String replacementString) {
-		return Function.of(REPLACE, JDBCType.VARCHAR, extractParameters(text, stringToReplace, replacementString));
+		return SqlServerHelper.replace(text, stringToReplace, replacementString);
 	}
 	
 	static Function<String> right(BindableColumn<String> text, BindableColumn<Integer> numberOfChars) {
-		return Function.of(RIGHT, JDBCType.VARCHAR, extractParameters(text, numberOfChars));
+		return SqlServerHelper.right(text, numberOfChars);
 	}
 	
-	static Function<String> right(BindableColumn<String> column, Integer numberOfChars) {
-		return Function.of(RIGHT, JDBCType.VARCHAR, extractParameters(column, numberOfChars));
+	static Function<String> right(BindableColumn<String> text, Integer numberOfChars) {
+		return SqlServerHelper.right(text, numberOfChars);
 	}
 	
 	static Function<String> right(String text, BindableColumn<Integer> numberOfChars) {
-		return Function.of(RIGHT, JDBCType.VARCHAR, extractParameters(text, numberOfChars));
+		return SqlServerHelper.right(text, numberOfChars);
 	}
 	
 	static Function<String> right(String text, Integer numberOfChars) {
-		return Function.of(RIGHT, JDBCType.VARCHAR, extractParameters(text, numberOfChars));
+		return SqlServerHelper.right(text, numberOfChars);
 	}
 	
-	static Function<String> rtrim(BindableColumn<String> column) {
-		return Function.of(RTRIM, JDBCType.VARCHAR, extractParameters(column));
+	static Function<String> rtrim(BindableColumn<String> text) {
+		return SqlServerHelper.rtrim(text);
 	}
 	
 	static Function<String> rtrim(String text) {
-		return Function.of(RTRIM, JDBCType.VARCHAR, extractParameters(text));
+		return SqlServerHelper.rtrim(text);
 	}
 	
 	static Function<String> space(BindableColumn<Integer> nbSpaces) {
-		return Function.of(SPACE, JDBCType.VARCHAR, extractParameters(nbSpaces));
+		return SqlServerHelper.space(nbSpaces);
 	}
 	
 	static Function<String> space(Integer nbSpaces) {
-		return Function.of(SPACE, JDBCType.VARCHAR, extractParameters(nbSpaces));
+		return SqlServerHelper.space(nbSpaces);
 	}
 	
 	static Function<String> str(BindableColumn<Integer> number) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number));
+		return SqlServerHelper.str(number);
 	}
 	
 	static Function<String> str(Integer number) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number));
+		return SqlServerHelper.str(number);
 	}
 	
 	static Function<String> str(BindableColumn<Integer> number, BindableColumn<Integer> length) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length));
+		return SqlServerHelper.str(number, length);
 	}
 	
 	static Function<String> str(BindableColumn<Integer> number, Integer length) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length));
+		return SqlServerHelper.str(number, length);
 	}
 	
 	static Function<String> str(Integer number, BindableColumn<Integer> length) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length));
+		return SqlServerHelper.str(number, length);
 	}
 	
 	static Function<String> str(Integer number, Integer length) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length));
+		return SqlServerHelper.str(number, length);
 	}
 	
 	static Function<String> str(BindableColumn<Integer> number, BindableColumn<Integer> length, BindableColumn<Integer> decimalPlaces) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length, decimalPlaces));
+		return SqlServerHelper.str(number, length, decimalPlaces);
 	}
 	
 	static Function<String> str(BindableColumn<Integer> number, BindableColumn<Integer> length, Integer decimalPlaces) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length, decimalPlaces));
+		return SqlServerHelper.str(number, length, decimalPlaces);
 	}
 	
 	static Function<String> str(BindableColumn<Integer> number, Integer length, BindableColumn<Integer> decimalPlaces) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length, decimalPlaces));
+		return SqlServerHelper.str(number, length, decimalPlaces);
 	}
 	
 	static Function<String> str(BindableColumn<Integer> number, Integer length, Integer decimalPlaces) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length, decimalPlaces));
+		return SqlServerHelper.str(number, length, decimalPlaces);
 	}
 	
 	static Function<String> str(Integer number, BindableColumn<Integer> length, BindableColumn<Integer> decimalPlaces) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length, decimalPlaces));
+		return SqlServerHelper.str(number, length, decimalPlaces);
 	}
 	
 	static Function<String> str(Integer number, BindableColumn<Integer> length, Integer decimalPlaces) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length, decimalPlaces));
+		return SqlServerHelper.str(number, length, decimalPlaces);
 	}
 	
 	static Function<String> str(Integer number, Integer length, BindableColumn<Integer> decimalPlaces) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length, decimalPlaces));
+		return SqlServerHelper.str(number, length, decimalPlaces);
 	}
 	
 	static Function<String> str(Integer number, Integer length, Integer decimalPlaces) {
-		return Function.of(STR, JDBCType.VARCHAR, extractParameters(number, length, decimalPlaces));
+		return SqlServerHelper.str(number, length, decimalPlaces);
 	}
 	
-	static Function<String> stuff(BindableColumn<String> column, BindableColumn<Integer> start, BindableColumn<Integer> length, BindableColumn<String> addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(column, start, length, addString));
+	static Function<String> stuff(BindableColumn<String> text, BindableColumn<Integer> start, BindableColumn<Integer> length, BindableColumn<String> addString) {
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
-	static Function<String> stuff(BindableColumn<String> column, BindableColumn<Integer> start, BindableColumn<Integer> length, String addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(column, start, length, addString));
+	static Function<String> stuff(BindableColumn<String> text, BindableColumn<Integer> start, BindableColumn<Integer> length, String addString) {
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
-	static Function<String> stuff(BindableColumn<String> column, BindableColumn<Integer> start, Integer length, BindableColumn<String> addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(column, start, length, addString));
+	static Function<String> stuff(BindableColumn<String> text, BindableColumn<Integer> start, Integer length, BindableColumn<String> addString) {
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
-	static Function<String> stuff(BindableColumn<String> column, BindableColumn<Integer> start, Integer length, String addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(column, start, length, addString));
+	static Function<String> stuff(BindableColumn<String> text, BindableColumn<Integer> start, Integer length, String addString) {
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
-	static Function<String> stuff(BindableColumn<String> column, Integer start, BindableColumn<Integer> length, BindableColumn<String> addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(column, start, length, addString));
+	static Function<String> stuff(BindableColumn<String> text, Integer start, BindableColumn<Integer> length, BindableColumn<String> addString) {
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
-	static Function<String> stuff(BindableColumn<String> column, Integer start, BindableColumn<Integer> length, String addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(column, start, length, addString));
+	static Function<String> stuff(BindableColumn<String> text, Integer start, BindableColumn<Integer> length, String addString) {
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
-	static Function<String> stuff(BindableColumn<String> column, Integer start, Integer length, BindableColumn<String> addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(column, start, length, addString));
+	static Function<String> stuff(BindableColumn<String> text, Integer start, Integer length, BindableColumn<String> addString) {
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
-	static Function<String> stuff(BindableColumn<String> column, Integer start, Integer length, String addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(column, start, length, addString));
+	static Function<String> stuff(BindableColumn<String> text, Integer start, Integer length, String addString) {
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
 	static Function<String> stuff(String text, BindableColumn<Integer> start, BindableColumn<Integer> length, BindableColumn<String> addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(text, start, length, addString));
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
 	static Function<String> stuff(String text, BindableColumn<Integer> start, BindableColumn<Integer> length, String addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(text, start, length, addString));
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
 	static Function<String> stuff(String text, BindableColumn<Integer> start, Integer length, BindableColumn<String> addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(text, start, length, addString));
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
 	static Function<String> stuff(String text, BindableColumn<Integer> start, Integer length, String addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(text, start, length, addString));
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
-	static Function<String> stuff(String column, Integer start, BindableColumn<Integer> length, BindableColumn<String> addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(column, start, length, addString));
+	static Function<String> stuff(String text, Integer start, BindableColumn<Integer> length, BindableColumn<String> addString) {
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
 	static Function<String> stuff(String text, Integer start, BindableColumn<Integer> length, String addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(text, start, length, addString));
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
 	static Function<String> stuff(String text, Integer start, Integer length, BindableColumn<String> addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(text, start, length, addString));
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
 	static Function<String> stuff(String text, Integer start, Integer length, String addString) {
-		return Function.of(STUFF, JDBCType.VARCHAR, extractParameters(text, start, length, addString));
+		return SqlServerHelper.stuff(text, start, length, addString);
 	}
 	
-	static Function<String> substring(BindableColumn<String> column, BindableColumn<Integer> start, BindableColumn<Integer> length) {
-		return Function.of(SUBSTRING, JDBCType.VARCHAR, extractParameters(column, start, length));
+	static Function<String> substring(BindableColumn<String> text, BindableColumn<Integer> start, BindableColumn<Integer> length) {
+		return SqlServerHelper.substring(text, start, length);
 	}
 	
-	static Function<String> substring(BindableColumn<String> column, BindableColumn<Integer> start, Integer length) {
-		return Function.of(SUBSTRING, JDBCType.VARCHAR, extractParameters(column, start, length));
+	static Function<String> substring(BindableColumn<String> text, BindableColumn<Integer> start, Integer length) {
+		return SqlServerHelper.substring(text, start, length);
 	}
 	
-	static Function<String> substring(BindableColumn<String> column, Integer start, BindableColumn<Integer> length) {
-		return Function.of(SUBSTRING, JDBCType.VARCHAR, extractParameters(column, start, length));
+	static Function<String> substring(BindableColumn<String> text, Integer start, BindableColumn<Integer> length) {
+		return SqlServerHelper.substring(text, start, length);
 	}
 	
-	static Function<String> substring(BindableColumn<String> column, Integer start, Integer length) {
-		return Function.of(SUBSTRING, JDBCType.VARCHAR, extractParameters(column, start, length));
+	static Function<String> substring(BindableColumn<String> text, Integer start, Integer length) {
+		return SqlServerHelper.substring(text, start, length);
 	}
 	
 	static Function<String> substring(String text, BindableColumn<Integer> start, BindableColumn<Integer> length) {
-		return Function.of(SUBSTRING, JDBCType.VARCHAR, extractParameters(text, start, length));
+		return SqlServerHelper.substring(text, start, length);
 	}
 	
 	static Function<String> substring(String text, BindableColumn<Integer> start, Integer length) {
-		return Function.of(SUBSTRING, JDBCType.VARCHAR, extractParameters(text, start, length));
+		return SqlServerHelper.substring(text, start, length);
 	}
 	
 	static Function<String> substring(String text, Integer start, BindableColumn<Integer> length) {
-		return Function.of(SUBSTRING, JDBCType.VARCHAR, extractParameters(text, start, length));
+		return SqlServerHelper.substring(text, start, length);
 	}
 	
 	static Function<String> substring(String text, Integer start, Integer length) {
-		return Function.of(SUBSTRING, JDBCType.VARCHAR, extractParameters(text, start, length));
+		return SqlServerHelper.substring(text, start, length);
 	}
 	
-	static Function<String> upper(BindableColumn<String> column) {
-		return Function.of(UPPER, JDBCType.VARCHAR, extractParameters(column));
+	static Function<String> upper(BindableColumn<String> text) {
+		return SqlServerHelper.upper(text);
 	}
 	
 	static Function<String> upper(String text) {
-		return Function.of(UPPER, JDBCType.VARCHAR, extractParameters(text));
+		return SqlServerHelper.upper(text);
 	}
 	
-	static Function<Integer> abs(BindableColumn<Integer> column) {
-		return Function.of(ABS, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> abs(BindableColumn<Integer> number) {
+		return SqlServerHelper.abs(number);
 	}
 	
 	static Function<Integer> abs(Integer number) {
-		return Function.of(ABS, JDBCType.INTEGER, extractParameters(number));
+		return SqlServerHelper.abs(number);
 	}
 	
-	static Function<Integer> avg(BindableColumn<Integer> column) {
-		return Function.of(AVG, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> avg(BindableColumn<Integer> number) {
+		return SqlServerHelper.avg(number);
 	}
 	
 	static Function<Integer> avg(Integer number) {
-		return Function.of(AVG, JDBCType.INTEGER, extractParameters(number));
+		return SqlServerHelper.avg(number);
 	}
 	
-	static Function<Integer> ceiling(BindableColumn<Double> column) {
-		return Function.of(CEILING, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> ceiling(BindableColumn<Double> number) {
+		return SqlServerHelper.ceiling(number);
 	}
 	
 	static Function<Integer> ceiling(Double number) {
-		return Function.of(CEILING, JDBCType.INTEGER, extractParameters(number));
+		return SqlServerHelper.ceiling(number);
 	}
 	
 	static Function<Integer> count(BindableColumn<?> column) {
-		return Function.of(COUNT, JDBCType.INTEGER, extractParameters(column));
+		return SqlServerHelper.count(column);
 	}
 	
-	static Function<Integer> floor(BindableColumn<Double> column) {
-		return Function.of(FLOOR, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> floor(BindableColumn<Double> number) {
+		return SqlServerHelper.floor(number);
 	}
 	
 	static Function<Integer> floor(Double number) {
-		return Function.of(FLOOR, JDBCType.INTEGER, extractParameters(number));
+		return SqlServerHelper.floor(number);
 	}
 	
-	static Function<Integer> max(BindableColumn<Integer> column) {
-		return Function.of(MAX, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> max(BindableColumn<Integer> number) {
+		return SqlServerHelper.max(number);
 	}
 	
-	static Function<Integer> min(BindableColumn<Integer> column) {
-		return Function.of(MIN, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> min(BindableColumn<Integer> number) {
+		return SqlServerHelper.min(number);
 	}
 	
 	static Function<Integer> rand() {
-		return Function.of(RAND, JDBCType.INTEGER);
+		return SqlServerHelper.rand();
 	}
 	
-	static Function<Integer> rand(BindableColumn<Integer> column) {
-		return Function.of(RAND, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> rand(BindableColumn<Integer> seed) {
+		return SqlServerHelper.rand(seed);
 	}
 	
 	static Function<Integer> rand(Integer seed) {
-		return Function.of(RAND, JDBCType.INTEGER, extractParameters(seed));
+		return SqlServerHelper.rand(seed);
 	}
 	
-	static Function<Integer> round(BindableColumn<Double> column, BindableColumn<Integer> decimal) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(column, decimal));
+	static Function<Integer> round(BindableColumn<Double> number, BindableColumn<Integer> decimal) {
+		return SqlServerHelper.round(number, decimal);
 	}
 	
-	static Function<Integer> round(BindableColumn<Double> column, Integer decimal) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(column, decimal));
+	static Function<Integer> round(BindableColumn<Double> number, Integer decimal) {
+		return SqlServerHelper.round(number, decimal);
 	}
 	
-	static Function<Integer> round(Double column, BindableColumn<Integer> decimal) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(column, decimal));
+	static Function<Integer> round(Double number, BindableColumn<Integer> decimal) {
+		return SqlServerHelper.round(number, decimal);
 	}
 	
 	static Function<Integer> round(Double number, Integer decimal) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(number, decimal));
+		return SqlServerHelper.round(number, decimal);
 	}
 	
-	static Function<Integer> round(BindableColumn<Double> column, BindableColumn<Integer> decimal, BindableColumn<Integer> operation) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(column, decimal, operation));
+	static Function<Integer> round(BindableColumn<Double> number, BindableColumn<Integer> decimal, BindableColumn<Integer> operation) {
+		return SqlServerHelper.round(number, decimal, operation);
 	}
 	
-	static Function<Integer> round(BindableColumn<Double> column, BindableColumn<Integer> decimal, Integer operation) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(column, decimal, operation));
+	static Function<Integer> round(BindableColumn<Double> number, BindableColumn<Integer> decimal, Integer operation) {
+		return SqlServerHelper.round(number, decimal, operation);
 	}
 	
-	static Function<Integer> round(BindableColumn<Double> column, Integer decimal, BindableColumn<Integer> operation) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(column, decimal, operation));
+	static Function<Integer> round(BindableColumn<Double> number, Integer decimal, BindableColumn<Integer> operation) {
+		return SqlServerHelper.round(number, decimal, operation);
 	}
 	
-	static Function<Integer> round(BindableColumn<Double> column, Integer decimal, Integer operation) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(column, decimal, operation));
+	static Function<Integer> round(BindableColumn<Double> number, Integer decimal, Integer operation) {
+		return SqlServerHelper.round(number, decimal, operation);
 	}
 	
 	static Function<Integer> round(Double number, BindableColumn<Integer> decimal, BindableColumn<Integer> operation) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(number, decimal, operation));
+		return SqlServerHelper.round(number, decimal, operation);
 	}
 	
 	static Function<Integer> round(Double number, BindableColumn<Integer> decimal, Integer operation) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(number, decimal, operation));
+		return SqlServerHelper.round(number, decimal, operation);
 	}
 	
 	static Function<Integer> round(Double number, Integer decimal, BindableColumn<Integer> operation) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(number, decimal, operation));
+		return SqlServerHelper.round(number, decimal, operation);
 	}
 	
 	static Function<Integer> round(Double number, Integer decimal, Integer operation) {
-		return Function.of(ROUND, JDBCType.INTEGER, extractParameters(number, decimal, operation));
+		return SqlServerHelper.round(number, decimal, operation);
 	}
 
-	static Function<Integer> sign(BindableColumn<Integer> column) {
-		return Function.of(SIGN, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> sign(BindableColumn<Integer> number) {
+		return SqlServerHelper.sign(number);
 	}
 	
-	static Function<Integer> sign(Integer seed) {
-		return Function.of(SIGN, JDBCType.INTEGER, extractParameters(seed));
+	static Function<Integer> sign(Integer number) {
+		return SqlServerHelper.sign(number);
 	}
 	
-	static Function<Integer> sum(BindableColumn<Integer> column) {
-		return Function.of(SUM, JDBCType.INTEGER, extractParameters(column));
+	static Function<Integer> sum(BindableColumn<Integer> number) {
+		return SqlServerHelper.sum(number);
 	}
 	
 	static Function<Integer> sum(Integer number) {
-		return Function.of(SUM, JDBCType.INTEGER, extractParameters(number));
+		return SqlServerHelper.sum(number);
 	}
 	
-	static Collection<Object> extractParameters(Object param1, Object... params) {
-		Collection<Object> result = new LinkedList<>();
-		result.add(param1);
-		for (Object object: params) {
-			if (object instanceof Object[]) {
-				for (Object object2: (Object[]) object) {
-					result.add(object2);	
-				}
-			} else {
-				result.add(object);
-			}
-		}
-		return result;
+	static Function<Date> currentTimeStamp() {
+		return SqlServerHelper.currentTimeStamp();
+	}
+	
+	static Function<Date> dateAdd(BindableColumn<String> interval, BindableColumn<Integer> number, BindableColumn<Date> date) {
+		
+		return SqlServerHelper.dateAdd(interval, number, date);
+	}
+	
+	static Function<Date> dateAdd(BindableColumn<String> interval, BindableColumn<Integer> number, Date date) {
+		return SqlServerHelper.dateAdd(interval, number, date);
+	}
+	
+	static Function<Date> dateAdd(BindableColumn<String> interval, Integer number, BindableColumn<Date> date) {
+		return SqlServerHelper.dateAdd(interval, number, date);
+	}
+	
+	static Function<Date> dateAdd(BindableColumn<String> interval, Integer number, Date date) {
+		return SqlServerHelper.dateAdd(interval, number, date);
+	}
+	
+	static Function<Date> dateAdd(DateInterval interval, BindableColumn<Integer> number, BindableColumn<Date> date) {
+		return SqlServerHelper.dateAdd(interval, number, date);
+	}
+	
+	static Function<Date> dateAdd(DateInterval interval, BindableColumn<Integer> number, Date date) {
+		return SqlServerHelper.dateAdd(interval, number, date);
+	}
+	
+	static Function<Date> dateAdd(DateInterval interval, Integer number, BindableColumn<Date> date) {
+		return SqlServerHelper.dateAdd(interval, number, date);
+	}
+	
+	static Function<Date> dateAdd(DateInterval interval, Integer number, Date date) {
+		return SqlServerHelper.dateAdd(interval, number, date);
+	}
+	
+	static Function<Date> dateDiff(BindableColumn<String> interval, BindableColumn<Date> date1, BindableColumn<Date> date2) {
+		return SqlServerHelper.dateDiff(interval, date1, date2);
+	}
+	
+	static Function<Date> dateDiff(BindableColumn<String> interval, BindableColumn<Date> date1, Date date2) {
+		return SqlServerHelper.dateDiff(interval, date1, date2);
+	}
+	
+	static Function<Date> dateDiff(BindableColumn<String> interval, Date date1, BindableColumn<Date> date2) {
+		return SqlServerHelper.dateDiff(interval, date1, date2);
+	}
+	
+	static Function<Date> dateDiff(BindableColumn<String> interval, Date date1, Date date2) {
+		return SqlServerHelper.dateDiff(interval, date1, date2);
+	}
+	
+	static Function<Date> dateDiff(DateInterval interval, BindableColumn<Date> date1, BindableColumn<Date> date2) {
+		return SqlServerHelper.dateDiff(interval, date1, date2);
+	}
+	
+	static Function<Date> dateDiff(DateInterval interval, BindableColumn<Date> date1, Date date2) {
+		return SqlServerHelper.dateDiff(interval, date1, date2);
+	}
+	
+	static Function<Date> dateDiff(DateInterval interval, Date date1, BindableColumn<Date> date2) {
+		return SqlServerHelper.dateDiff(interval, date1, date2);
+	}
+	
+	static Function<Date> dateDiff(DateInterval interval, Date date1, Date date2) {
+		return SqlServerHelper.dateDiff(interval, date1, date2);
+	}
+	
+	static Function<Date> dateName(BindableColumn<String> interval, BindableColumn<Date> date) {
+		return SqlServerHelper.dateName(interval, date);
+	}
+	
+	static Function<Date> dateName(BindableColumn<String> interval, Date date) {
+		return SqlServerHelper.dateName(interval, date);
+	}
+	
+	static Function<Date> dateName(DateInterval interval, BindableColumn<Date> date) {
+		return SqlServerHelper.dateName(interval, date);
+	}
+	
+	static Function<Date> dateName(DateInterval interval, Date date) {
+		return SqlServerHelper.dateName(interval, date);
+	}
+	
+	static Function<Date> datePart(BindableColumn<String> interval, BindableColumn<Date> date) {
+		return SqlServerHelper.datePart(interval, date);
+	}
+	
+	static Function<Date> datePart(BindableColumn<String> interval, Date date) {
+		return SqlServerHelper.datePart(interval, date);
+	}
+	
+	static Function<Date> datePart(DateInterval interval, BindableColumn<Date> date) {
+		return SqlServerHelper.datePart(interval, date);
+	}
+	
+	static Function<Date> datePart(DateInterval interval, Date date) {
+		return SqlServerHelper.datePart(interval, date);
+	}
+	
+	static Function<Integer> day(BindableColumn<Date> date) {
+		return SqlServerHelper.day(date);
+	}
+	
+	static Function<Integer> day(Date date) {
+		return SqlServerHelper.day(date);
+	}
+	
+	static Function<Date> getDate() {
+		return SqlServerHelper.getDate();
+	}
+	
+	static Function<Date> getUtcDate() {
+		return SqlServerHelper.getUtcDate();
+	}
+	
+	static Function<Integer> month(BindableColumn<Date> date) {
+		return SqlServerHelper.month(date);
+	}
+	
+	static Function<Integer> month(Date date) {
+		return SqlServerHelper.month(date);
+	}
+	
+	static Function<Integer> year(BindableColumn<Date> date) {
+		return SqlServerHelper.year(date);
+	}
+	
+	static Function<Integer> year(Date date) {
+		return SqlServerHelper.year(date);
 	}
 }

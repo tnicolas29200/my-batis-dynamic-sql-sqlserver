@@ -46,15 +46,15 @@ import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
 public class NumericFunctionsTest {
 
 	public static final SqlTable table = SqlTable.of("foo");
-    public static final SqlColumn<Integer> column1 = table.column("column1", JDBCType.INTEGER);
-    public static final SqlColumn<Integer> column2 = table.column("column2", JDBCType.INTEGER);
-    public static final SqlColumn<Integer> column3 = table.column("column3", JDBCType.INTEGER);
-    public static final SqlColumn<Double> column4 = table.column("column4", JDBCType.DOUBLE);
+    public static final SqlColumn<Integer> columnInteger1 = table.column("columnInteger1", JDBCType.INTEGER);
+    public static final SqlColumn<Integer> columnInteger2 = table.column("columnInteger2", JDBCType.INTEGER);
+    public static final SqlColumn<Integer> columnInteger3 = table.column("columnInteger3", JDBCType.INTEGER);
+    public static final SqlColumn<Double> columnDouble1 = table.column("columnDouble1", JDBCType.DOUBLE);
     
     @Test
     public void testAbs() {
-        test(select(abs(column1).as("A_COLUMN1")).from(table, "a").where(abs(column1), isEqualTo(1)),
-        	"select ABS(a.column1) as A_COLUMN1 from foo a where ABS(a.column1) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(abs(columnInteger1).as("A_COLUMN1")).from(table, "a").where(abs(columnInteger1), isEqualTo(1)),
+        	"select ABS(a.columnInteger1) as A_COLUMN1 from foo a where ABS(a.columnInteger1) = #{parameters.p1,jdbcType=INTEGER}");
         
         test(select(abs(1).as("A_COLUMN1")).from(table, "a").where(abs(2), isEqualTo(1)),
         	"select ABS(1) as A_COLUMN1 from foo a where ABS(2) = #{parameters.p1,jdbcType=INTEGER}");
@@ -62,8 +62,8 @@ public class NumericFunctionsTest {
     
     @Test
     public void testAvg() {
-        test(select(avg(column1).as("A_COLUMN1")).from(table, "a").where(avg(column1), isEqualTo(1)),
-        	"select AVG(a.column1) as A_COLUMN1 from foo a where AVG(a.column1) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(avg(columnInteger1).as("A_COLUMN1")).from(table, "a").where(avg(columnInteger1), isEqualTo(1)),
+        	"select AVG(a.columnInteger1) as A_COLUMN1 from foo a where AVG(a.columnInteger1) = #{parameters.p1,jdbcType=INTEGER}");
         
         test(select(avg(1).as("A_COLUMN1")).from(table, "a").where(avg(2), isEqualTo(1)),
         	"select AVG(1) as A_COLUMN1 from foo a where AVG(2) = #{parameters.p1,jdbcType=INTEGER}");
@@ -71,8 +71,8 @@ public class NumericFunctionsTest {
     
     @Test
     public void testCeiling() {
-        test(select(ceiling(column4).as("A_COLUMN4")).from(table, "a").where(ceiling(column4), isEqualTo(1)),
-        	"select CEILING(a.column4) as A_COLUMN4 from foo a where CEILING(a.column4) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(ceiling(columnDouble1).as("A_COLUMN4")).from(table, "a").where(ceiling(columnDouble1), isEqualTo(1)),
+        	"select CEILING(a.columnDouble1) as A_COLUMN4 from foo a where CEILING(a.columnDouble1) = #{parameters.p1,jdbcType=INTEGER}");
         
         test(select(ceiling(1.2).as("A_COLUMN1")).from(table, "a").where(ceiling(2.3), isEqualTo(1)),
         	"select CEILING(1.2) as A_COLUMN1 from foo a where CEILING(2.3) = #{parameters.p1,jdbcType=INTEGER}");
@@ -80,14 +80,14 @@ public class NumericFunctionsTest {
     
     @Test
     public void testCount() {
-        test(select(count(column4).as("A_COLUMN4")).from(table, "a").where(count(column4), isEqualTo(1)),
-        	"select COUNT(a.column4) as A_COLUMN4 from foo a where COUNT(a.column4) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(count(columnDouble1).as("A_COLUMN4")).from(table, "a").where(count(columnDouble1), isEqualTo(1)),
+        	"select COUNT(a.columnDouble1) as A_COLUMN4 from foo a where COUNT(a.columnDouble1) = #{parameters.p1,jdbcType=INTEGER}");
     }
     
     @Test
     public void testFloor() {
-        test(select(floor(column4).as("A_COLUMN4")).from(table, "a").where(floor(column4), isEqualTo(1)),
-        	"select FLOOR(a.column4) as A_COLUMN4 from foo a where FLOOR(a.column4) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(floor(columnDouble1).as("A_COLUMN4")).from(table, "a").where(floor(columnDouble1), isEqualTo(1)),
+        	"select FLOOR(a.columnDouble1) as A_COLUMN4 from foo a where FLOOR(a.columnDouble1) = #{parameters.p1,jdbcType=INTEGER}");
         
         test(select(floor(1.2).as("A_COLUMN1")).from(table, "a").where(floor(2.3), isEqualTo(1)),
         	"select FLOOR(1.2) as A_COLUMN1 from foo a where FLOOR(2.3) = #{parameters.p1,jdbcType=INTEGER}");
@@ -95,20 +95,23 @@ public class NumericFunctionsTest {
     
     @Test
     public void testMax() {
-        test(select(max(column1).as("A_COLUMN1")).from(table, "a").where(max(column1), isEqualTo(1)),
-        	"select MAX(a.column1) as A_COLUMN1 from foo a where MAX(a.column1) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(max(columnInteger1).as("A_COLUMN1")).from(table, "a").where(max(columnInteger1), isEqualTo(1)),
+        	"select MAX(a.columnInteger1) as A_COLUMN1 from foo a where MAX(a.columnInteger1) = #{parameters.p1,jdbcType=INTEGER}");
     }
     
     @Test
     public void testMin() {
-        test(select(min(column1).as("A_COLUMN1")).from(table, "a").where(min(column1), isEqualTo(1)),
-        	"select MIN(a.column1) as A_COLUMN1 from foo a where MIN(a.column1) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(min(columnInteger1).as("A_COLUMN1")).from(table, "a").where(min(columnInteger1), isEqualTo(1)),
+        	"select MIN(a.columnInteger1) as A_COLUMN1 from foo a where MIN(a.columnInteger1) = #{parameters.p1,jdbcType=INTEGER}");
     }
 
     @Test
     public void testRand() {
-        test(select(rand(column1).as("A_COLUMN1")).from(table, "a").where(rand(column1), isEqualTo(1)),
-        	"select RAND(a.column1) as A_COLUMN1 from foo a where RAND(a.column1) = #{parameters.p1,jdbcType=INTEGER}");
+    	test(select(rand().as("A_COLUMN1")).from(table, "a").where(rand(), isEqualTo(1)),
+            	"select RAND() as A_COLUMN1 from foo a where RAND() = #{parameters.p1,jdbcType=INTEGER}");
+    	
+    	test(select(rand(columnInteger1).as("A_COLUMN1")).from(table, "a").where(rand(columnInteger1), isEqualTo(1)),
+        	"select RAND(a.columnInteger1) as A_COLUMN1 from foo a where RAND(a.columnInteger1) = #{parameters.p1,jdbcType=INTEGER}");
         
         test(select(rand(1).as("A_COLUMN1")).from(table, "a").where(rand(2), isEqualTo(1)),
         	"select RAND(1) as A_COLUMN1 from foo a where RAND(2) = #{parameters.p1,jdbcType=INTEGER}");
@@ -116,38 +119,38 @@ public class NumericFunctionsTest {
     
     @Test
     public void testRound() {
-        test(select(round(column4, column1).as("A_COLUMN1")).from(table, "a").where(round(column4, column1), isEqualTo(1)),
-        	"select ROUND(a.column4, a.column1) as A_COLUMN1 from foo a where ROUND(a.column4, a.column1) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(columnDouble1, columnInteger1).as("A_COLUMN1")).from(table, "a").where(round(columnDouble1, columnInteger1), isEqualTo(1)),
+        	"select ROUND(a.columnDouble1, a.columnInteger1) as A_COLUMN1 from foo a where ROUND(a.columnDouble1, a.columnInteger1) = #{parameters.p1,jdbcType=INTEGER}");
         
-        test(select(round(column4, 1).as("A_COLUMN1")).from(table, "a").where(round(column4, 2), isEqualTo(1)),
-            	"select ROUND(a.column4, 1) as A_COLUMN1 from foo a where ROUND(a.column4, 2) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(columnDouble1, 1).as("A_COLUMN1")).from(table, "a").where(round(columnDouble1, 2), isEqualTo(1)),
+            	"select ROUND(a.columnDouble1, 1) as A_COLUMN1 from foo a where ROUND(a.columnDouble1, 2) = #{parameters.p1,jdbcType=INTEGER}");
         
-        test(select(round(2.0, column1).as("A_COLUMN1")).from(table, "a").where(round(2.0, column1), isEqualTo(1)),
-            	"select ROUND(2.0, a.column1) as A_COLUMN1 from foo a where ROUND(2.0, a.column1) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(2.0, columnInteger1).as("A_COLUMN1")).from(table, "a").where(round(2.0, columnInteger1), isEqualTo(1)),
+            	"select ROUND(2.0, a.columnInteger1) as A_COLUMN1 from foo a where ROUND(2.0, a.columnInteger1) = #{parameters.p1,jdbcType=INTEGER}");
         
         test(select(round(1.0, 2).as("A_COLUMN1")).from(table, "a").where(round(2.0, 3), isEqualTo(1)),
             	"select ROUND(1.0, 2) as A_COLUMN1 from foo a where ROUND(2.0, 3) = #{parameters.p1,jdbcType=INTEGER}");
     
-        test(select(round(column4, column1, column2).as("A_COLUMN1")).from(table, "a").where(round(column4, column1, column2), isEqualTo(1)),
-            	"select ROUND(a.column4, a.column1, a.column2) as A_COLUMN1 from foo a where ROUND(a.column4, a.column1, a.column2) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(columnDouble1, columnInteger1, columnInteger2).as("A_COLUMN1")).from(table, "a").where(round(columnDouble1, columnInteger1, columnInteger2), isEqualTo(1)),
+            	"select ROUND(a.columnDouble1, a.columnInteger1, a.columnInteger2) as A_COLUMN1 from foo a where ROUND(a.columnDouble1, a.columnInteger1, a.columnInteger2) = #{parameters.p1,jdbcType=INTEGER}");
         
-        test(select(round(column4, column1, 1).as("A_COLUMN1")).from(table, "a").where(round(column4, column1, 2), isEqualTo(1)),
-            	"select ROUND(a.column4, a.column1, 1) as A_COLUMN1 from foo a where ROUND(a.column4, a.column1, 2) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(columnDouble1, columnInteger1, 1).as("A_COLUMN1")).from(table, "a").where(round(columnDouble1, columnInteger1, 2), isEqualTo(1)),
+            	"select ROUND(a.columnDouble1, a.columnInteger1, 1) as A_COLUMN1 from foo a where ROUND(a.columnDouble1, a.columnInteger1, 2) = #{parameters.p1,jdbcType=INTEGER}");
         
-        test(select(round(column4, 1, column2).as("A_COLUMN1")).from(table, "a").where(round(column4, 2, column2), isEqualTo(1)),
-            	"select ROUND(a.column4, 1, a.column2) as A_COLUMN1 from foo a where ROUND(a.column4, 2, a.column2) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(columnDouble1, 1, columnInteger2).as("A_COLUMN1")).from(table, "a").where(round(columnDouble1, 2, columnInteger2), isEqualTo(1)),
+            	"select ROUND(a.columnDouble1, 1, a.columnInteger2) as A_COLUMN1 from foo a where ROUND(a.columnDouble1, 2, a.columnInteger2) = #{parameters.p1,jdbcType=INTEGER}");
         
-        test(select(round(column4, 1, 2).as("A_COLUMN1")).from(table, "a").where(round(column4, 2, 3), isEqualTo(1)),
-            	"select ROUND(a.column4, 1, 2) as A_COLUMN1 from foo a where ROUND(a.column4, 2, 3) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(columnDouble1, 1, 2).as("A_COLUMN1")).from(table, "a").where(round(columnDouble1, 2, 3), isEqualTo(1)),
+            	"select ROUND(a.columnDouble1, 1, 2) as A_COLUMN1 from foo a where ROUND(a.columnDouble1, 2, 3) = #{parameters.p1,jdbcType=INTEGER}");
         
-        test(select(round(1.0, column1, column2).as("A_COLUMN1")).from(table, "a").where(round(2.0, column1, column2), isEqualTo(1)),
-            	"select ROUND(1.0, a.column1, a.column2) as A_COLUMN1 from foo a where ROUND(2.0, a.column1, a.column2) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(1.0, columnInteger1, columnInteger2).as("A_COLUMN1")).from(table, "a").where(round(2.0, columnInteger1, columnInteger2), isEqualTo(1)),
+            	"select ROUND(1.0, a.columnInteger1, a.columnInteger2) as A_COLUMN1 from foo a where ROUND(2.0, a.columnInteger1, a.columnInteger2) = #{parameters.p1,jdbcType=INTEGER}");
         
-        test(select(round(1.0, column1, 3).as("A_COLUMN1")).from(table, "a").where(round(2.0, column1, 4), isEqualTo(1)),
-            	"select ROUND(1.0, a.column1, 3) as A_COLUMN1 from foo a where ROUND(2.0, a.column1, 4) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(1.0, columnInteger1, 3).as("A_COLUMN1")).from(table, "a").where(round(2.0, columnInteger1, 4), isEqualTo(1)),
+            	"select ROUND(1.0, a.columnInteger1, 3) as A_COLUMN1 from foo a where ROUND(2.0, a.columnInteger1, 4) = #{parameters.p1,jdbcType=INTEGER}");
         
-        test(select(round(1.0, 3, column2).as("A_COLUMN1")).from(table, "a").where(round(2.0, 3, column2), isEqualTo(1)),
-            	"select ROUND(1.0, 3, a.column2) as A_COLUMN1 from foo a where ROUND(2.0, 3, a.column2) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(round(1.0, 3, columnInteger2).as("A_COLUMN1")).from(table, "a").where(round(2.0, 3, columnInteger2), isEqualTo(1)),
+            	"select ROUND(1.0, 3, a.columnInteger2) as A_COLUMN1 from foo a where ROUND(2.0, 3, a.columnInteger2) = #{parameters.p1,jdbcType=INTEGER}");
         
         test(select(round(1.0, 2, 3).as("A_COLUMN1")).from(table, "a").where(round(2.0, 3, 4), isEqualTo(1)),
             	"select ROUND(1.0, 2, 3) as A_COLUMN1 from foo a where ROUND(2.0, 3, 4) = #{parameters.p1,jdbcType=INTEGER}");
@@ -155,8 +158,8 @@ public class NumericFunctionsTest {
     
     @Test
     public void testSign() {
-        test(select(sign(column1).as("A_COLUMN1")).from(table, "a").where(sign(column1), isEqualTo(1)),
-        	"select SIGN(a.column1) as A_COLUMN1 from foo a where SIGN(a.column1) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(sign(columnInteger1).as("A_COLUMN1")).from(table, "a").where(sign(columnInteger1), isEqualTo(1)),
+        	"select SIGN(a.columnInteger1) as A_COLUMN1 from foo a where SIGN(a.columnInteger1) = #{parameters.p1,jdbcType=INTEGER}");
         
         test(select(sign(1).as("A_COLUMN1")).from(table, "a").where(sign(2), isEqualTo(1)),
         	"select SIGN(1) as A_COLUMN1 from foo a where SIGN(2) = #{parameters.p1,jdbcType=INTEGER}");
@@ -164,8 +167,8 @@ public class NumericFunctionsTest {
     
     @Test
     public void testSum() {
-        test(select(sum(column1).as("A_COLUMN1")).from(table, "a").where(sum(column1), isEqualTo(1)),
-        	"select SUM(a.column1) as A_COLUMN1 from foo a where SUM(a.column1) = #{parameters.p1,jdbcType=INTEGER}");
+        test(select(sum(columnInteger1).as("A_COLUMN1")).from(table, "a").where(sum(columnInteger1), isEqualTo(1)),
+        	"select SUM(a.columnInteger1) as A_COLUMN1 from foo a where SUM(a.columnInteger1) = #{parameters.p1,jdbcType=INTEGER}");
         
         test(select(sum(1).as("A_COLUMN1")).from(table, "a").where(sum(2), isEqualTo(1)),
         	"select SUM(1) as A_COLUMN1 from foo a where SUM(2) = #{parameters.p1,jdbcType=INTEGER}");
