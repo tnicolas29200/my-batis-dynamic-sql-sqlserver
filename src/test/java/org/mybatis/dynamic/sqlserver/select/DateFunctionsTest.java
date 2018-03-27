@@ -61,8 +61,8 @@ public class DateFunctionsTest {
     
     private static final Date date;
     private static final Date date2;
-    private static final String dateRepresentation = "2018-03-25T19:30:11.147";
-    private static final String date2Representation = "2017-02-24T18:29:10.146";
+    private static final String dateRepresentation = "'2018-03-25T19:30:11.147'";
+    private static final String date2Representation = "'2017-02-24T18:29:10.146'";
     
     static {
     	Calendar calendar = GregorianCalendar.getInstance();

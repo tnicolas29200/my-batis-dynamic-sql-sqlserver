@@ -15,11 +15,15 @@
  */
 package org.mybatis.dynamic.sqlserver;
 
+import java.sql.JDBCType;
 import java.util.Date;
 
 import org.mybatis.dynamic.sql.BindableColumn;
+import org.mybatis.dynamic.sql.select.ConvertStyle;
 import org.mybatis.dynamic.sql.select.DateInterval;
 import org.mybatis.dynamic.sql.select.Function;
+import org.mybatis.dynamic.sql.select.UnparametrizedColumn;
+import org.mybatis.dynamic.sql.select.UnquotedString;
 
 public interface SQLServerBuilder {
 	
@@ -655,4 +659,66 @@ public interface SQLServerBuilder {
 	static Function<Integer> year(Date date) {
 		return SqlServerHelper.year(date);
 	}
+	
+	static <T, U> Function<U> cast(BindableColumn<T> value, U dataType, JDBCType jdbcType) {
+		UnquotedString result = new UnquotedString(" AS " + jdbcType.getName());
+		UnparametrizedColumn<T> column = new UnparametrizedColumn<>(value);
+		return SqlServerHelper.cast(dataType, jdbcType, column, result);
+	}
+	
+	static <T, U> Function<U> cast(T value, U dataType, JDBCType jdbcType) {
+		UnquotedString result = new UnquotedString(value + " AS " + jdbcType.getName());
+		return SqlServerHelper.cast(dataType, jdbcType, result);
+	}
+	
+	static <T, U> Function<U> cast(BindableColumn<T> value, U dataType, JDBCType jdbcType, Integer length) {
+		UnquotedString result = new UnquotedString(" AS " + jdbcType.getName() + "(" + length + ")");
+		UnparametrizedColumn<T> column = new UnparametrizedColumn<>(value);
+		return SqlServerHelper.cast(dataType, jdbcType, column, result);
+	}
+	
+	static <T, U> Function<U> cast(T value, U dataType, JDBCType jdbcType, Integer length) {
+		UnquotedString result = new UnquotedString(value + " AS " + jdbcType.getName() + "(" + length + ")");
+		return SqlServerHelper.cast(dataType, jdbcType, result);
+	}
+	
+	static <T, U> Function<U> convert(U dataType, JDBCType jdbcType, BindableColumn<T> column) {
+		UnquotedString result = new UnquotedString(jdbcType.getName());
+		return SqlServerHelper.convert(dataType, jdbcType, result, column);
+	}
+	
+	static <T, U> Function<U> convert(U dataType, JDBCType jdbcType, T value) {
+		UnquotedString result = new UnquotedString(jdbcType.getName());
+		return SqlServerHelper.convert(dataType, jdbcType, result, value);
+	}
+	
+	static <T, U> Function<U> convert(U dataType, JDBCType jdbcType, Integer length, BindableColumn<T> column) {
+		UnquotedString result = new UnquotedString(jdbcType.getName() + "(" + length + ")");
+		return SqlServerHelper.convert(dataType, jdbcType, result, column);
+	}
+	
+	static <T, U> Function<U> convert(U dataType, JDBCType jdbcType, Integer length, T value) {
+		UnquotedString result = new UnquotedString(jdbcType.getName() + "(" + length + ")");
+		return SqlServerHelper.convert(dataType, jdbcType, result, value);
+	}	
+	
+	static <T, U> Function<U> convert(U dataType, JDBCType jdbcType, BindableColumn<T> column, ConvertStyle style) {
+		UnquotedString result = new UnquotedString(jdbcType.getName());
+		return SqlServerHelper.convert(dataType, jdbcType, result, column, style);
+	}
+	
+	static <T, U> Function<U> convert(U dataType, JDBCType jdbcType, T value, ConvertStyle style) {
+		UnquotedString result = new UnquotedString(jdbcType.getName());
+		return SqlServerHelper.convert(dataType, jdbcType, result, value, style);
+	}
+	
+	static <T, U> Function<U> convert(U dataType, JDBCType jdbcType, Integer length, BindableColumn<T> column, ConvertStyle style) {
+		UnquotedString result = new UnquotedString(jdbcType.getName() + "(" + length + ")");
+		return SqlServerHelper.convert(dataType, jdbcType, result, column, style);
+	}
+	
+	static <T, U> Function<U> convert(U dataType, JDBCType jdbcType, Integer length, T value, ConvertStyle style) {
+		UnquotedString result = new UnquotedString(jdbcType.getName() + "(" + length + ")");
+		return SqlServerHelper.convert(dataType, jdbcType, result, value, style);
+	}	
 }

@@ -34,7 +34,8 @@ public class Function<U> implements BindableColumn<U> {
 	protected Collection<Object> parameters;
     protected String alias;
     protected JDBCType jdbcType;
-	private String functionName;
+	protected String functionName;
+	protected boolean nextParameterUnparametrized = false;
 	
 	protected Function(String functionName) {
 		this.functionName = functionName;
@@ -56,9 +57,10 @@ public class Function<U> implements BindableColumn<U> {
 		 if (this.parameters != null) {
 			 int index = 0;
 			 for (Object value: parameters) {
-				 if (index > 0) {
+				 if (index > 0 && !nextParameterUnparametrized) {
 					 builder.append(", ");
 				 }
+				 nextParameterUnparametrized = false;
 				 index++;
 				 builder.append(format(value, tableAliasCalculator)); 
 			 }
@@ -73,12 +75,15 @@ public class Function<U> implements BindableColumn<U> {
 			return "'" + param + "'"; 
 		 } else if (param instanceof BasicColumn) {
 			 return ((BasicColumn) param).renderWithTableAlias(tableAliasCalculator);
+		 } else if (param instanceof UnparametrizedColumn) {
+			 this.nextParameterUnparametrized = true;
+			 return ((UnparametrizedColumn) param).getColumn().renderWithTableAlias(tableAliasCalculator);
 		 } else if  (param instanceof SqlColumn) {
 			 return ((SqlColumn) param).renderWithTableAlias(tableAliasCalculator);
 		 } else if  (param instanceof BindableColumn) {
 			 return ((BindableColumn) param).renderWithTableAlias(tableAliasCalculator);
 		 } else if (param instanceof Date) {
-			 return dateFormat.format((Date) param);
+			 return "'" + dateFormat.format((Date) param) + "'";
 		 } else {
 			 return param.toString();
 		 }

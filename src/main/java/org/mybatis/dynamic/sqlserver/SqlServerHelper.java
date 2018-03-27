@@ -168,6 +168,14 @@ public class SqlServerHelper {
 		return of("YEAR", JDBCType.INTEGER, columns);
 	}
 	
+	static <U> Function<U> cast(U dataType, JDBCType type, Object... columns) {
+		return of("CAST", type, columns);
+	}
+	
+	static <U> Function<U> convert(U dataType, JDBCType type, Object... columns) {
+		return of("CONVERT", type, columns);
+	}
+	
 	static <T> Function<T> of (String functionName, JDBCType type, Object...params) {
 		return Function.of(functionName, type, extractParameters(params));
 	}
