@@ -720,5 +720,50 @@ public interface SQLServerBuilder {
 	static <T, U> Function<U> convert(U dataType, JDBCType jdbcType, Integer length, T value, ConvertStyle style) {
 		UnquotedString result = new UnquotedString(jdbcType.getName() + "(" + length + ")");
 		return SqlServerHelper.convert(dataType, jdbcType, result, value, style);
-	}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	static <T> Function<T> coalesce(BindableColumn<T>... columns) {
+		return SqlServerHelper.coalesce(JDBCType.OTHER, columns);
+	}
+	
+	static Function<String> currentUser() {
+		return SqlServerHelper.currentUser();
+	}
+	
+	static Function<Boolean> isDate(Object date) {
+		return SqlServerHelper.isDate(date);
+	}
+	
+	static Function<Boolean> isNull(Object date) {
+		return SqlServerHelper.isNull(date);
+	}
+	
+	static Function<Boolean> isNumeric(Object date) {
+		return SqlServerHelper.isNumeric(date);
+	}
+	
+	static <T> Function<T> nullIf(T column, Object column2) {
+		return SqlServerHelper.nullIf(column, column2);
+	}
+	
+	static Function<String> sessionUser() {
+		return SqlServerHelper.sessionUser();
+	}
+	
+	static Function<String> sessionProperty(String property) {
+		return SqlServerHelper.sessionProperty(property);
+	}
+	
+	static Function<String> sessionProperty(BindableColumn<String> property) {
+		return SqlServerHelper.sessionProperty(property);
+	}
+	
+	static Function<String> systemUser() {
+		return SqlServerHelper.systemUser();
+	}
+	
+	static Function<String> userName() {
+		return SqlServerHelper.userName();
+	}
 }

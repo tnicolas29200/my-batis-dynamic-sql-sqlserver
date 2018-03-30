@@ -176,6 +176,46 @@ public class SqlServerHelper {
 		return of("CONVERT", type, columns);
 	}
 	
+	static <U> Function<U> coalesce(JDBCType type, Object... columns) {
+		return of("COALESCE", type, columns);
+	}
+	
+	static Function<String> currentUser() {
+		return of("CURRENT_USER", JDBCType.VARCHAR);
+	}
+	
+	static Function<Boolean> isDate(Object... columns) {
+		return of("ISDATE", JDBCType.BOOLEAN, columns);
+	}
+	
+	static Function<Boolean> isNull(Object... columns) {
+		return of("ISNULL", JDBCType.BOOLEAN, columns);
+	}
+	
+	static Function<Boolean> isNumeric(Object... columns) {
+		return of("ISNUMERIC", JDBCType.BOOLEAN, columns);
+	}
+	
+	static <U> Function<U> nullIf(U column1, Object column2) {
+		return of ("NULLIF", JDBCType.NULL, column1, column2);
+	}
+	
+	static Function<String> sessionUser() {
+		return of("SESSION_USER", JDBCType.VARCHAR);
+	}
+	
+	static Function<String> sessionProperty(Object... columns) {
+		return of("SESSIONPROPERTY", JDBCType.VARCHAR, columns);
+	}
+	
+	static Function<String> systemUser() {
+		return of("SYSTEM_USER", JDBCType.VARCHAR);
+	}
+	
+	static Function<String> userName() {
+		return of("USER_NAME", JDBCType.VARCHAR);
+	}
+	
 	static <T> Function<T> of (String functionName, JDBCType type, Object...params) {
 		return Function.of(functionName, type, extractParameters(params));
 	}
