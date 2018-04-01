@@ -132,14 +132,12 @@
       <version>3.9.0</version>
       <scope>test</scope>
     </dependency>
-	<!--
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
       <version>3.4.5</version>
       <scope>test</scope>
     </dependency>
-	-->
     <!--
     Waiting for the 1.0.1 publishing on maven, i use the jar 
 	<dependency>
@@ -149,7 +147,6 @@
       <scope>test</scope>
     </dependency>
      -->
-     <!-- 
     <dependency>
       <groupId>org.mybatis.dynamic-sql</groupId>
       <artifactId>mybatis-dynamic-sql</artifactId>
@@ -157,8 +154,6 @@
       <scope>system</scope>
       <systemPath>${project.basedir}/lib/mybatis-dynamic-sql-1.0.1-SNAPSHOT.jar</systemPath>
 	</dependency>
-     -->
-     
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
