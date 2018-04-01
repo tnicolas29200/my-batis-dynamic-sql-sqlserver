@@ -19,13 +19,14 @@ import java.sql.JDBCType;
 import java.util.Date;
 
 import org.mybatis.dynamic.sql.BindableColumn;
+import org.mybatis.dynamic.sql.SqlBuilder;
 import org.mybatis.dynamic.sql.select.ConvertStyle;
 import org.mybatis.dynamic.sql.select.DateInterval;
 import org.mybatis.dynamic.sql.select.Function;
 import org.mybatis.dynamic.sql.select.UnparametrizedColumn;
 import org.mybatis.dynamic.sql.select.UnquotedString;
 
-public interface SQLServerBuilder {
+public interface SQLServerBuilder extends SqlBuilder {
 	
 	static Function<Integer> ascii(BindableColumn<String> character) {
 		return SqlServerHelper.ascii(character);
