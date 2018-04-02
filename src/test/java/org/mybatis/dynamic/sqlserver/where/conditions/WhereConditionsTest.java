@@ -7,6 +7,8 @@ import static org.mybatis.dynamic.sql.SqlBuilderExt.greaterOrEqual;
 import static org.mybatis.dynamic.sql.SqlBuilderExt.less;
 import static org.mybatis.dynamic.sql.SqlBuilderExt.lessOrEqual;
 import static org.mybatis.dynamic.sql.SqlBuilderExt.like;
+import static org.mybatis.dynamic.sql.SqlBuilderExt.notEqual;
+import static org.mybatis.dynamic.sql.SqlBuilderExt.notLike;
 
 import java.sql.JDBCType;
 
@@ -112,6 +114,30 @@ public class WhereConditionsTest {
     	
     	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnString1, like()),
                 "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 like #{parameters.p1,jdbcType=VARCHAR}");
+    }
+    
+    @Test
+    public void testNotEqual() {
+    	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnInteger1, notEqual("paramName1")),
+                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnInteger1 <> #{paramName1}");
+    	
+    	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnInteger1, notEqual()),
+                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnInteger1 <> #{parameters.p1,jdbcType=INTEGER}");
+    	
+    	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnInteger1, notEqual(select(columnInteger2).from(table, "b"))),
+                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnInteger1 <> (select b.columnInteger2 from foo b)");
+    	
+    	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnInteger1, notEqual(columnInteger2)),
+                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnInteger1 <> a.columnInteger2");
+    }
+    
+    @Test
+    public void testNotLike() {
+    	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnString1, notLike("paramName1")),
+                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 not like #{paramName1}");
+    	
+    	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnString1, notLike()),
+                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 not like #{parameters.p1,jdbcType=VARCHAR}");
     }
     
     @SuppressWarnings("rawtypes")

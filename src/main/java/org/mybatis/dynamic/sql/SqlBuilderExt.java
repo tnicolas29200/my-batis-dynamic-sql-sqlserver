@@ -1,7 +1,5 @@
 package org.mybatis.dynamic.sql;
 
-import java.util.function.Supplier;
-
 import org.mybatis.dynamic.sql.select.SelectModel;
 import org.mybatis.dynamic.sql.util.Buildable;
 import org.mybatis.dynamic.sql.where.condition.IsEqualTo;
@@ -25,9 +23,13 @@ import org.mybatis.dynamic.sql.where.condition.IsLessThanOrEqualToWithSubselect;
 import org.mybatis.dynamic.sql.where.condition.IsLessThanParam;
 import org.mybatis.dynamic.sql.where.condition.IsLessThanWithSubselect;
 import org.mybatis.dynamic.sql.where.condition.IsLike;
-import org.mybatis.dynamic.sql.where.condition.IsLikeCaseInsensitive;
-import org.mybatis.dynamic.sql.where.condition.IsLikeCaseInsensitiveToParam;
 import org.mybatis.dynamic.sql.where.condition.IsLikeToParam;
+import org.mybatis.dynamic.sql.where.condition.IsNotEqualTo;
+import org.mybatis.dynamic.sql.where.condition.IsNotEqualToColumn;
+import org.mybatis.dynamic.sql.where.condition.IsNotEqualToParam;
+import org.mybatis.dynamic.sql.where.condition.IsNotEqualToWithSubselect;
+import org.mybatis.dynamic.sql.where.condition.IsNotLike;
+import org.mybatis.dynamic.sql.where.condition.IsNotLikeToParam;
 
 public interface SqlBuilderExt extends SqlBuilder {
 	static <T> IsEqualTo<T> equal() {
@@ -116,5 +118,29 @@ public interface SqlBuilderExt extends SqlBuilder {
     
 	static <T> IsLikeToParam<T> like(String paramName) {
         return IsLikeToParam.of(paramName);
+    }
+	
+	static <T> IsNotEqualTo<T> notEqual() {
+        return IsNotEqualTo.of(() -> null);
+    }
+
+	static <T> IsNotEqualToParam<T> notEqual(String paramName) {
+        return IsNotEqualToParam.of(paramName);
+    }
+	
+	static <T> IsNotEqualToWithSubselect<T> notEqual(Buildable<SelectModel> selectModelBuilder) {
+        return IsNotEqualToWithSubselect.of(selectModelBuilder);
+    }
+    
+    static <T> IsNotEqualToColumn<T> notEqual(BasicColumn column) {
+        return IsNotEqualToColumn.of(column);
+    }
+    
+    static <T> IsNotLike<T> notLike() {
+        return IsNotLike.of(() -> null);
+    }
+    
+	static <T> IsNotLikeToParam<T> notLike(String paramName) {
+        return IsNotLikeToParam.of(paramName);
     }
 }
