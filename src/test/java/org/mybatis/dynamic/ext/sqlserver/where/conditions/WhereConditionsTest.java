@@ -1,3 +1,18 @@
+/**
+ *    Copyright 2018 the original author or authors.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 package org.mybatis.dynamic.ext.sqlserver.where.conditions;
 
 import static org.mybatis.dynamic.sql.SqlBuilder.select;
@@ -180,7 +195,7 @@ public class WhereConditionsTest {
                 "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 NOT LIKE #{paramName1}");
     	
     	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnString1, notLike()),
-                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 NOT LIKE #{parameters.p1,jdbcType=VARCHAR}");
+                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 not like #{parameters.p1,jdbcType=VARCHAR}");
     	
     	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnString1, notLikeConstant("%test%")),
                 "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 NOT LIKE '%test%'");
