@@ -29,11 +29,21 @@ public interface SimpleMyBatis3RendererUtils {
 	public static String select(Buildable<SelectModel> query) {
 		return query.build().render(new SimpleMyBatis3RenderingStrategy()).getSelectStatement();
 	}
+	
+	public static String select(Buildable<SelectModel> query, Pagination pagination) {
+		String queryString = query.build().render(new SimpleMyBatis3RenderingStrategy()).getSelectStatement();
+		return pagination.formatPagination(queryString);
+	}
 
 	public static String select(SelectDSL<SelectModel> query) {
 		return query.build().render(new SimpleMyBatis3RenderingStrategy()).getSelectStatement();
 	}
-
+	
+	public static String select(SelectDSL<SelectModel> query, Pagination pagination) {
+		String queryString = query.build().render(new SimpleMyBatis3RenderingStrategy()).getSelectStatement();
+		return pagination.formatPagination(queryString);
+	}
+	
 	public static String update(UpdateDSL<UpdateModel> query) {
 		return query.build().render(new SimpleMyBatis3RenderingStrategy()).getUpdateStatement();
 	}

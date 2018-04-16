@@ -195,7 +195,7 @@ public class WhereConditionsTest {
                 "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 NOT LIKE #{paramName1}");
     	
     	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnString1, notLike()),
-                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 not like #{parameters.p1,jdbcType=VARCHAR}");
+                "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 NOT LIKE #{parameters.p1,jdbcType=VARCHAR}");
     	
     	test(select(columnInteger1.as("A_COLUMN1")).from(table, "a").where(columnString1, notLikeConstant("%test%")),
                 "select a.columnInteger1 as A_COLUMN1 from foo a where a.columnString1 NOT LIKE '%test%'");
@@ -222,6 +222,6 @@ public class WhereConditionsTest {
     @SuppressWarnings("rawtypes")
    	protected void test(QueryExpressionWhereBuilder selectModel, String sql) {
        	SelectStatementProvider selectStatement = ((SelectModel) selectModel.build()).render(RenderingStrategy.MYBATIS3);
-       	SoftAssertions.assertSoftly(softly -> softly.assertThat(selectStatement.getSelectStatement()).isEqualTo(sql));
+       	SoftAssertions.assertSoftly(softly -> softly.assertThat(selectStatement.getSelectStatement().toLowerCase()).isEqualTo(sql.toLowerCase()));
     }
 }
